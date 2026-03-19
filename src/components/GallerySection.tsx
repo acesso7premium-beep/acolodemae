@@ -3,14 +3,16 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 
 const images = [
-  { src: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=600&h=400&fit=crop", alt: "Criança em atividade lúdica" },
-  { src: "https://images.unsplash.com/photo-1544776193-352d25ca82cd?w=600&h=400&fit=crop", alt: "Oficina de arte" },
-  { src: "https://images.unsplash.com/photo-1587654780291-39c9404d7dd0?w=600&h=400&fit=crop", alt: "Atividade em grupo" },
-  { src: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&h=400&fit=crop", alt: "Família reunida" },
-  { src: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=600&h=400&fit=crop", alt: "Brincadeiras inclusivas" },
-  { src: "https://images.unsplash.com/photo-1491013516836-7db643ee125a?w=600&h=400&fit=crop", alt: "Criança feliz" },
-  { src: "https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=600&h=400&fit=crop", alt: "Evento cultural" },
-  { src: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=600&h=400&fit=crop", alt: "Voluntariado" },
+  { src: "https://colo-de-mae-doacao.lovable.app/assets/child-1-DCQDwOaZ.jpg", alt: "Criança em atividade musical" },
+  { src: "https://colo-de-mae-doacao.lovable.app/assets/child-2-Z64jds-P.jpg", alt: "Criança tocando instrumento" },
+  { src: "https://colo-de-mae-doacao.lovable.app/assets/child-3-rmmr0248.jpg", alt: "Criança com tambor" },
+  { src: "https://colo-de-mae-doacao.lovable.app/assets/activity-1-W5QrYSBk.jpg", alt: "Grupo de crianças em oficina de música" },
+  { src: "https://colo-de-mae-doacao.lovable.app/assets/activity-2-Dvm78u4g.jpg", alt: "Crianças aprendendo com instrumentos musicais" },
+  { src: "https://colo-de-mae-doacao.lovable.app/assets/parent-photo-2-yVJ0-3j3.jpg", alt: "Grupo de mães em atividade de artesanato" },
+  { src: "https://colo-de-mae-doacao.lovable.app/assets/parent-photo-3-dFX8cQ6e.jpg", alt: "Instrutora ajudando criança em atividade" },
+  { src: "https://colo-de-mae-doacao.lovable.app/assets/parent-photo-4-4IJqgEdO.jpg", alt: "Mães e instrutores em oficina criativa" },
+  { src: "https://colo-de-mae-doacao.lovable.app/assets/parent-photo-5-DNld9-BG.jpg", alt: "Mães participando de atividade artística" },
+  { src: "https://colo-de-mae-doacao.lovable.app/assets/parent-photo-6-CeYHpZKQ.jpg", alt: "Momento afetuoso entre mãe e filhos" },
 ];
 
 const GallerySection = () => {
@@ -24,7 +26,7 @@ const GallerySection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-16 text-center"
+          className="mb-6 text-center"
         >
           <span className="mb-3 inline-block rounded-full border border-primary/30 bg-primary/10 px-4 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
             Galeria
@@ -32,6 +34,10 @@ const GallerySection = () => {
           <h2 className="font-heading text-3xl font-bold text-foreground md:text-4xl">
             Momentos que Inspiram
           </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
+            Veja a alegria e o desenvolvimento das nossas crianças nas oficinas e atividades.
+            Momentos de cuidado, aprendizado e conexão que fazem a diferença.
+          </p>
         </motion.div>
 
         <motion.div
@@ -39,7 +45,7 @@ const GallerySection = () => {
           whileInView="show"
           viewport={{ once: true }}
           variants={{ hidden: {}, show: { transition: { staggerChildren: 0.08 } } }}
-          className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4"
+          className="grid grid-cols-2 gap-3 md:grid-cols-5 md:gap-4"
         >
           {images.map((img, i) => (
             <motion.button
@@ -86,7 +92,7 @@ const GallerySection = () => {
                 <X size={20} />
               </button>
               <img
-                src={images[selected].src.replace("w=600&h=400", "w=1200&h=800")}
+                src={images[selected].src}
                 alt={images[selected].alt}
                 className="max-h-[80vh] w-auto rounded-xl shadow-2xl"
               />

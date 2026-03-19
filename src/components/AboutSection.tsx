@@ -4,18 +4,18 @@ import { Heart, Eye, Star } from "lucide-react";
 const cards = [
   {
     icon: Heart,
-    title: "Missão",
-    text: "Promover o acolhimento, a inclusão e o desenvolvimento integral de crianças e adolescentes com Transtorno do Espectro Autista e suas famílias, por meio de atividades socioeducativas, culturais e terapêuticas.",
+    title: "Nossa Missão",
+    text: "Promover inclusão, desenvolvimento e qualidade de vida para crianças com TEA através de oficinas, apoio familiar e amor incondicional.",
   },
   {
     icon: Eye,
-    title: "Visão",
-    text: "Ser referência em inclusão e acolhimento para famílias neurodivergentes, contribuindo para uma sociedade mais justa, empática e diversa.",
+    title: "Nossa Visão",
+    text: "Ser referência em acolhimento e desenvolvimento de crianças com TEA, construindo uma sociedade mais inclusiva e empática.",
   },
   {
     icon: Star,
-    title: "Valores",
-    text: "Acolhimento, empatia, respeito à diversidade, protagonismo familiar, transparência e compromisso com o desenvolvimento humano.",
+    title: "Nossos Valores",
+    text: "Amor, respeito, inclusão, empatia e comprometimento com cada criança e família que passa por nossas portas.",
   },
 ];
 
@@ -47,9 +47,11 @@ const AboutSection = () => {
             Sobre a Associação
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-            A Associação Colo de Mãe nasceu do desejo de mães que buscavam acolhimento e
-            suporte para suas famílias. Hoje, somos uma rede de apoio que transforma vidas
-            por meio da inclusão e do protagonismo.
+            A Associação Colo de Mãe TEA nasceu do sonho de proporcionar acolhimento,
+            desenvolvimento e inclusão para crianças com Transtorno do Espectro Autista e
+            suas famílias. Com amor, dedicação e respeito, criamos um espaço seguro onde
+            cada criança pode ser ela mesma, desenvolver suas habilidades e sentir-se
+            verdadeiramente pertencente.
           </p>
         </motion.div>
 
