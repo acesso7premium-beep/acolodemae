@@ -54,8 +54,8 @@ const HeroSection = () => {
         >
           <div className="overflow-hidden rounded-2xl border border-border/50 shadow-2xl shadow-primary/5">
             <img
-              src="https://colo-de-mae-doacao.lovable.app/assets/hero-image-BVD0Gznx.jpg"
-              alt="Crianças em atividades na Associação Colo de Mãe TEA"
+              src="https://colo-de-mae-doacao.lovable.app/assets/activity-1-W5QrYSBk.jpg"
+              alt="Crianças em atividades na Associação Colo de Mãe"
               className="h-auto w-full object-cover"
               loading="eager"
             />
