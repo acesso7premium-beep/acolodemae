@@ -12,7 +12,7 @@ const FloatingWhatsApp = () => {
       animate={{ scale: 1 }}
       transition={{ delay: 1.2, type: "spring" }}
       whileHover={{ scale: 1.1 }}
-      className="fixed bottom-6 left-6 z-40 flex h-14 w-14 items-center justify-center rounded-full shadow-lg transition-shadow hover:shadow-xl"
+      className="fixed bottom-6 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full shadow-lg transition-shadow hover:shadow-xl"
     >
       <img src={whatsappLogo} alt="WhatsApp" className="h-14 w-14 rounded-full" />
     </motion.a>

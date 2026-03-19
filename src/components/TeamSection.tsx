@@ -1,26 +1,24 @@
 import { motion } from "framer-motion";
+import img01 from "@/assets/team/01-fernanda-aguiar.png";
+import img02 from "@/assets/team/02-andrea-ferrari.jpg";
+import img03 from "@/assets/team/03-juliana-leonardo.jpeg";
+import img04 from "@/assets/team/04-liliam-castro.jpeg";
+import img05 from "@/assets/team/05-nicole-meireles.jpg";
+import img06 from "@/assets/team/06-fabiana.jpeg";
+import img07 from "@/assets/team/07-jhenifer-pereira.jpg";
+import img08 from "@/assets/team/08-jennifer-dias.jpg";
+import img09 from "@/assets/team/09-vanessa-cassiano.jpg";
 
 const team = [
-  {
-    name: "Ana Paula Silva",
-    role: "Presidente & Fundadora",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&crop=face",
-  },
-  {
-    name: "Carla Mendes",
-    role: "Coordenadora de Projetos",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop&crop=face",
-  },
-  {
-    name: "Juliana Rocha",
-    role: "Terapeuta Ocupacional",
-    image: "https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=400&h=400&fit=crop&crop=face",
-  },
-  {
-    name: "Fernanda Lima",
-    role: "Assistente Social",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face",
-  },
+  { name: "Fernanda Aguiar", role: "Presidente", image: img01 },
+  { name: "Andrea Ferrari", role: "Nutricionista", image: img02 },
+  { name: "Juliana Leonardo Silva", role: "Psicopedagoga", image: img03 },
+  { name: "Liliam Castro", role: "Terapeuta Ocupacional", image: img04 },
+  { name: "Nicole Meireles", role: "Fonoaudióloga", image: img05 },
+  { name: "Fabiana", role: "Arte Terapeuta", image: img06 },
+  { name: "Jhenifer Pereira", role: "Terapeuta", image: img07 },
+  { name: "Jennifer Dias", role: "Acolhimento", image: img08 },
+  { name: "Vanessa Cassiano", role: "Acolhimento", image: img09 },
 ];
 
 const container = {
@@ -60,7 +58,7 @@ const TeamSection = () => {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4"
+          className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
         >
           {team.map((member) => (
             <motion.div
@@ -73,7 +71,7 @@ const TeamSection = () => {
                 <img
                   src={member.image}
                   alt={member.name}
-                  className="h-64 w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="h-64 w-full object-cover object-top transition-transform duration-500 group-hover:scale-110"
                   loading="lazy"
                 />
               </div>
