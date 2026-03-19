@@ -78,8 +78,8 @@ const ContactSection = () => {
               <div>
                 <h4 className="font-heading font-bold text-foreground">Endereço</h4>
                 <p className="text-sm text-muted-foreground">
-                  Rua Exemplo, 123 — Bairro Centro<br />
-                  São Paulo, SP — CEP 01000-000
+                  Avenida Professor Joaquim Barreto, 40<br />
+                  Centro — Cotia, SP
                 </p>
               </div>
             </div>
@@ -88,8 +88,8 @@ const ContactSection = () => {
                 <Phone size={22} />
               </div>
               <div>
-                <h4 className="font-heading font-bold text-foreground">Telefone</h4>
-                <p className="text-sm text-muted-foreground">(11) 99999-9999</p>
+                <h4 className="font-heading font-bold text-foreground">Telefone / WhatsApp</h4>
+                <p className="text-sm text-muted-foreground">(11) 91190-8336</p>
               </div>
             </div>
             <div className="flex items-start gap-4">
@@ -98,7 +98,7 @@ const ContactSection = () => {
               </div>
               <div>
                 <h4 className="font-heading font-bold text-foreground">E-mail</h4>
-                <p className="text-sm text-muted-foreground">contato@colodemaetea.org.br</p>
+                <p className="text-sm text-muted-foreground">colodemaetea25@gmail.com</p>
               </div>
             </div>
 
