@@ -21,7 +21,6 @@ const Index = () => {
         <ContactSection />
       </main>
       <Footer />
-      <FloatingInstagram />
       <FloatingWhatsApp />
     </div>
   );
