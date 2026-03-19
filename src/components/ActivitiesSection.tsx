@@ -6,25 +6,25 @@ const activities = [
     icon: Puzzle,
     title: "Oficinas de Desenvolvimento",
     description:
-      "Atividades lúdicas e terapêuticas que estimulam o desenvolvimento cognitivo, motor e social de crianças e adolescentes autistas.",
+      "Música, arte e atividades sensoriais que estimulam o desenvolvimento e a expressão das crianças.",
   },
   {
     icon: Users,
     title: "Apoio às Famílias",
     description:
-      "Grupos de acolhimento, orientação e troca de experiências para mães, pais e cuidadores de pessoas neurodivergentes.",
+      "Orientação, acolhimento e suporte emocional para mães, pais e familiares em todas as fases.",
   },
   {
     icon: HandHeart,
     title: "Inclusão Social",
     description:
-      "Eventos culturais, esportivos e recreativos que promovem a convivência e o respeito à diversidade na comunidade.",
+      "Eventos, encontros e atividades que promovem a integração das crianças na comunidade.",
   },
   {
     icon: Package,
     title: "Necessidades Básicas",
     description:
-      "Apoio com alimentação, materiais escolares e itens de higiene para famílias em situação de vulnerabilidade social.",
+      "Lanches nutritivos, transporte e materiais pedagógicos para garantir o bem-estar das crianças.",
   },
 ];
 
@@ -56,8 +56,8 @@ const ActivitiesSection = () => {
             Nossas Atividades
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-            Desenvolvemos projetos que acolhem, incluem e transformam a realidade de
-            famílias neurodivergentes.
+            Sua contribuição faz diferença real na vida das nossas crianças e suas famílias.
+            Desenvolvemos projetos que acolhem, incluem e transformam.
           </p>
         </motion.div>
 

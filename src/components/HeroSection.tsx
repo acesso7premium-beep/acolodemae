@@ -18,18 +18,19 @@ const HeroSection = () => {
             transition={{ delay: 0.3 }}
             className="inline-block w-fit rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary"
           >
-            Associação Colo de Mãe
+            Associação Colo de Mãe TEA
           </motion.span>
 
           <h1 className="font-heading text-4xl font-extrabold leading-tight text-foreground md:text-5xl lg:text-6xl">
-            Acolhimento que{" "}
-            <span className="text-primary">transforma</span>, protagonismo que{" "}
-            <span className="text-primary">liberta.</span>
+            Cuidar com{" "}
+            <span className="text-primary">amor</span>, incluir com o{" "}
+            <span className="text-primary">coração.</span>
           </h1>
 
           <p className="max-w-lg text-lg text-muted-foreground">
-            Apoio especializado e comunidade para famílias neurodivergentes.
-            Promovemos inclusão, desenvolvimento e pertencimento.
+            Acolhimento, desenvolvimento e inclusão para crianças com Transtorno do
+            Espectro Autista e suas famílias. Com amor, dedicação e respeito, criamos
+            um espaço seguro onde cada criança pode ser ela mesma.
           </p>
 
           <div className="flex flex-wrap gap-4">
@@ -54,7 +55,7 @@ const HeroSection = () => {
           <div className="overflow-hidden rounded-2xl border border-border/50 shadow-2xl shadow-primary/5">
             <img
               src="https://colo-de-mae-doacao.lovable.app/assets/hero-image-BVD0Gznx.jpg"
-              alt="Crianças em atividades na Associação Colo de Mãe"
+              alt="Crianças em atividades na Associação Colo de Mãe TEA"
               className="h-auto w-full object-cover"
               loading="eager"
             />
