@@ -34,7 +34,7 @@ const Footer = () => {
           <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-primary" aria-label="YouTube">
             <Youtube size={18} />
           </a>
-          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-primary" aria-label="Facebook">
+          <a href="https://www.facebook.com/p/Associa%C3%A7%C3%A3o-Colo-de-M%C3%A3e-TEA-61582749415573/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground transition-colors hover:text-primary" aria-label="Facebook">
             <Facebook size={18} />
           </a>
         </div>
