@@ -78,8 +78,8 @@ const ContactSection = () => {
               <div>
                 <h4 className="font-heading font-bold text-foreground">Endereço</h4>
                 <p className="text-sm text-muted-foreground">
-                  Rua Exemplo, 123 — Bairro Centro<br />
-                  São Paulo, SP — CEP 01000-000
+                  Avenida Professor Joaquim Barreto, 40<br />
+                  Centro — Cotia, SP
                 </p>
               </div>
             </div>
