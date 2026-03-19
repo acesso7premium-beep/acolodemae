@@ -1,24 +1,30 @@
 import { motion } from "framer-motion";
 import img01 from "@/assets/team/01-fernanda-aguiar.png";
-import img02 from "@/assets/team/02-andrea-ferrari.jpg";
-import img03 from "@/assets/team/03-juliana-leonardo.jpeg";
-import img04 from "@/assets/team/04-liliam-castro.jpeg";
-import img05 from "@/assets/team/05-nicole-meireles.jpg";
-import img06 from "@/assets/team/06-fabiana.jpeg";
-import img07 from "@/assets/team/07-jhenifer-pereira.jpg";
-import img08 from "@/assets/team/08-jennifer-dias.jpg";
-import img09 from "@/assets/team/09-vanessa-cassiano.jpg";
+import img02 from "@/assets/team/02-beatriz-isabelle.png";
+import img03 from "@/assets/team/03-andrea-ferrari.png";
+import img04 from "@/assets/team/04-joedson-paulo.png";
+import img05 from "@/assets/team/05-juliana-leonardo.png";
+import img06 from "@/assets/team/06-liliam-castro.png";
+import img07 from "@/assets/team/07-nicole-meireles.png";
+import img08 from "@/assets/team/08-fabiana.png";
+import img09 from "@/assets/team/09-jhenifer-pereira.png";
+import img10 from "@/assets/team/10-jennifer-dias.png";
+import img11 from "@/assets/team/11-vanessa-cassiano.png";
+import img12 from "@/assets/team/12-tatiane-pereira.png";
 
 const team = [
   { name: "Fernanda Aguiar", role: "Presidente", image: img01 },
-  { name: "Andrea Ferrari", role: "Nutricionista", image: img02 },
-  { name: "Juliana Leonardo Silva", role: "Psicopedagoga", image: img03 },
-  { name: "Liliam Castro", role: "Terapeuta Ocupacional", image: img04 },
-  { name: "Nicole Meireles", role: "Fonoaudióloga", image: img05 },
-  { name: "Fabiana", role: "Arte Terapeuta", image: img06 },
-  { name: "Jhenifer Pereira", role: "Terapeuta", image: img07 },
-  { name: "Jennifer Dias", role: "Acolhimento", image: img08 },
-  { name: "Vanessa Cassiano", role: "Acolhimento", image: img09 },
+  { name: "Beatriz Isabelle dos Reis", role: "Psicóloga TCC", image: img02 },
+  { name: "Andrea Ferrari", role: "Nutricionista", image: img03 },
+  { name: "Joedson Paulo", role: "Coordenador e Musicoterapeuta", image: img04 },
+  { name: "Juliana Leonardo Silva", role: "NeuroPsicoPedagoga", image: img05 },
+  { name: "Liliam Castro", role: "Terapeuta Ocupacional", image: img06 },
+  { name: "Nicole Meireles", role: "Fonoaudióloga", image: img07 },
+  { name: "Fabiana", role: "Arte Terapeuta", image: img08 },
+  { name: "Jhenifer Pereira", role: "Terapeuta", image: img09 },
+  { name: "Jennifer Dias", role: "Acolhimento", image: img10 },
+  { name: "Vanessa Cassiano", role: "Acolhimento", image: img11 },
+  { name: "Tatiane Pereira Lopes", role: "Acolhimento", image: img12 },
 ];
 
 const container = {
@@ -58,7 +64,7 @@ const TeamSection = () => {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
+          className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
         >
           {team.map((member) => (
             <motion.div
