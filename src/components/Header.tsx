@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import logo from "@/assets/logo-colo-de-mae.png";
 
 const navItems = [
   { label: "Sobre", href: "#sobre" },

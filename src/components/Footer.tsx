@@ -1,4 +1,5 @@
 import { Instagram, Youtube, Facebook } from "lucide-react";
+import logo from "@/assets/logo-colo-de-mae.png";
 
 const Footer = () => {
   return (
