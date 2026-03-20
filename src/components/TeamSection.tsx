@@ -4,6 +4,7 @@ import img02 from "@/assets/team/02-beatriz-isabelle.png";
 import img03 from "@/assets/team/03-andrea-ferrari.png";
 import img04 from "@/assets/team/04-joedson-paulo.png";
 import img05 from "@/assets/team/05-juliana-leonardo.png";
+import img05_1 from "@/assets/team/05.1-nileide.png";
 import img06 from "@/assets/team/06-liliam-castro.png";
 import img07 from "@/assets/team/07-nicole-meireles.png";
 import img08 from "@/assets/team/08-fabiana.png";
@@ -18,6 +19,7 @@ const team = [
   { name: "Andrea Ferrari", role: "Nutricionista", image: img03 },
   { name: "Joedson Paulo", role: "Coordenador e Musicoterapeuta", image: img04 },
   { name: "Juliana Leonardo Silva", role: "NeuroPsicoPedagoga", image: img05 },
+  { name: "Nileide", role: "Neuropsicóloga", image: img05_1 },
   { name: "Liliam Castro", role: "Terapeuta Ocupacional", image: img06 },
   { name: "Nicole Meireles", role: "Fonoaudióloga", image: img07 },
   { name: "Fabiana", role: "Arte Terapeuta", image: img08 },
