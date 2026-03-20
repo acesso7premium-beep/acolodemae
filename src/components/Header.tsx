@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import logo from "@/assets/logo-colo-de-mae.png";
 
 const navItems = [
   { label: "Sobre", href: "#sobre" },
@@ -18,7 +19,7 @@ const Header = () => {
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <a href="#" className="flex items-center gap-3">
           <img
-            src="https://colo-de-mae-doacao.lovable.app/assets/logo-CUxqItr0.png"
+            src={logo}
             alt="Logo Associação Colo de Mãe"
             className="h-10 w-auto"
           />

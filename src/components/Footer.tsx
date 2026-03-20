@@ -1,4 +1,5 @@
 import { Instagram, Youtube, Facebook } from "lucide-react";
+import logo from "@/assets/logo-colo-de-mae.png";
 
 const Footer = () => {
   return (
@@ -6,7 +7,7 @@ const Footer = () => {
       <div className="container mx-auto flex flex-col items-center gap-6 px-4 md:flex-row md:justify-between">
         <div className="flex items-center gap-3">
           <img
-            src="https://colo-de-mae-doacao.lovable.app/assets/logo-CUxqItr0.png"
+            src={logo}
             alt="Logo Colo de Mãe"
             className="h-8 w-auto"
           />
