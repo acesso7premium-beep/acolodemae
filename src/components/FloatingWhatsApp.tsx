@@ -34,8 +34,8 @@ const FloatingWhatsApp = () => {
             <div className="flex items-center gap-3 bg-[#075E54] px-4 py-3">
               <img src={whatsappLogo} alt="" className="h-10 w-10 rounded-full" />
               <div className="flex-1">
-                <p className="text-sm font-bold text-white">Colo de Mãe</p>
-                <p className="text-xs text-white/70">Normalmente responde em minutos</p>
+                <p className="text-sm font-bold text-white">Clara — Colo de Mãe</p>
+                <p className="text-xs text-white/70">Online 24h</p>
               </div>
               <button
                 onClick={() => setOpen(false)}
