@@ -33,9 +33,9 @@ const FloatingWhatsApp = () => {
           >
             {/* Header */}
             <div className="flex items-center gap-3 bg-[#075E54] px-4 py-3">
-              <img src={claraAvatar} alt="Clara" className="h-10 w-10 rounded-full object-cover" />
+              <img src={claraAvatar} alt="Jennifer" className="h-10 w-10 rounded-full object-cover" />
               <div className="flex-1">
-                <p className="text-sm font-bold text-white">Clara</p>
+                <p className="text-sm font-bold text-white">Jennifer</p>
                 <p className="text-xs text-white/70">Online 24h</p>
               </div>
               <button
@@ -54,7 +54,7 @@ const FloatingWhatsApp = () => {
                   Olá! Que alegria ter você por aqui. ✨
                 </p>
                 <p className="mt-1 text-sm text-gray-800">
-                  Eu sou a <strong>Clara</strong>, sua assistente virtual da Associação Colo de Mãe e do TeaFestival Luz & Voz. Sinta-se em casa e acolhido(a); meu objetivo é iluminar seu caminho e dar voz às suas dúvidas. 💙
+                  Eu sou a <strong>Jennifer</strong>, sua assistente virtual da Associação Colo de Mãe e do TeaFestival Luz & Voz. Sinta-se em casa e acolhido(a); meu objetivo é iluminar seu caminho e dar voz às suas dúvidas. 💙
                 </p>
                 <p className="mt-1 text-sm text-gray-800">
                   Como posso te ajudar hoje?
