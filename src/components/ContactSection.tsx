@@ -88,8 +88,8 @@ const ContactSection = () => {
                 <Phone size={22} />
               </div>
               <div>
-                <h4 className="font-heading font-bold text-foreground">Telefone / WhatsApp</h4>
-                <p className="text-sm text-muted-foreground">(11) 91190-8336</p>
+                <h4 className="font-heading font-bold text-foreground">WhatsApp</h4>
+                <p className="text-sm text-muted-foreground">(11) 9.6977-2347</p>
               </div>
             </div>
             <div className="flex items-start gap-4">
