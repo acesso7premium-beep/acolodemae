@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Send } from "lucide-react";
 import whatsappLogo from "@/assets/logo_whatsapp.png";
+import claraAvatar from "@/assets/clara_avatar.png";
 
 const WHATSAPP_NUMBER = "5511962206252";
 
