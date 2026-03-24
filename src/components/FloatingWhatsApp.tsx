@@ -34,8 +34,8 @@ const FloatingWhatsApp = () => {
             <div className="flex items-center gap-3 bg-[#075E54] px-4 py-3">
               <img src={whatsappLogo} alt="" className="h-10 w-10 rounded-full" />
               <div className="flex-1">
-                <p className="text-sm font-bold text-white">Colo de Mãe</p>
-                <p className="text-xs text-white/70">Normalmente responde em minutos</p>
+                <p className="text-sm font-bold text-white">Clara — Colo de Mãe</p>
+                <p className="text-xs text-white/70">Online 24h</p>
               </div>
               <button
                 onClick={() => setOpen(false)}
@@ -50,8 +50,13 @@ const FloatingWhatsApp = () => {
             <div className="bg-[#ECE5DD] p-4">
               <div className="inline-block max-w-[85%] rounded-lg rounded-tl-none bg-white px-3 py-2 shadow-sm">
                 <p className="text-sm text-gray-800">
-                  Olá! 👋 Como podemos ajudar você? Envie sua mensagem e
-                  responderemos o mais rápido possível.
+                  Olá! Que alegria ter você por aqui. ✨
+                </p>
+                <p className="mt-1 text-sm text-gray-800">
+                  Eu sou a <strong>Clara</strong>, sua assistente virtual da Associação Colo de Mãe e do TeaFestival Luz & Voz. Sinta-se em casa e acolhido(a); meu objetivo é iluminar seu caminho e dar voz às suas dúvidas. 💙
+                </p>
+                <p className="mt-1 text-sm text-gray-800">
+                  Como posso te ajudar hoje?
                 </p>
                 <span className="mt-1 block text-right text-[10px] text-gray-400">
                   Agora
