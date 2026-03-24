@@ -54,7 +54,7 @@ const FloatingWhatsApp = () => {
                   Olá! Que alegria ter você por aqui. ✨
                 </p>
                 <p className="mt-1 text-sm text-gray-800">
-                  Eu sou a <strong>Clara</strong>, sua assistente virtual da Associação Colo de Mãe e do TeaFestival Luz & Voz. Sinta-se em casa e acolhido(a); meu objetivo é iluminar seu caminho e dar voz às suas dúvidas. 💙
+                  Eu sou a <strong>Jennifer</strong>, sua assistente virtual da Associação Colo de Mãe e do TeaFestival Luz & Voz. Sinta-se em casa e acolhido(a); meu objetivo é iluminar seu caminho e dar voz às suas dúvidas. 💙
                 </p>
                 <p className="mt-1 text-sm text-gray-800">
                   Como posso te ajudar hoje?
