@@ -50,8 +50,13 @@ const FloatingWhatsApp = () => {
             <div className="bg-[#ECE5DD] p-4">
               <div className="inline-block max-w-[85%] rounded-lg rounded-tl-none bg-white px-3 py-2 shadow-sm">
                 <p className="text-sm text-gray-800">
-                  Olá! 👋 Como podemos ajudar você? Envie sua mensagem e
-                  responderemos o mais rápido possível.
+                  Olá! Que alegria ter você por aqui. ✨
+                </p>
+                <p className="mt-1 text-sm text-gray-800">
+                  Eu sou a <strong>Clara</strong>, sua assistente virtual da Associação Colo de Mãe e do TeaFestival Luz & Voz. Sinta-se em casa e acolhido(a); meu objetivo é iluminar seu caminho e dar voz às suas dúvidas. 💙
+                </p>
+                <p className="mt-1 text-sm text-gray-800">
+                  Como posso te ajudar hoje?
                 </p>
                 <span className="mt-1 block text-right text-[10px] text-gray-400">
                   Agora
