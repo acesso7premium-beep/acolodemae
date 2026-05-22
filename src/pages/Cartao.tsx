@@ -261,14 +261,31 @@ const Cartao = () => {
     setShowSecurity(true);
   };
 
+  const handleSalvarCredenciais = async () => {
+    try {
+      const txt =
+        `CARTÃO COLO DE MÃE — credenciais de segurança\n` +
+        `Palavra secreta: ${security.palavra}\n` +
+        `Frase secreta: ${security.frase}\n` +
+        `Código único: ${security.codigo}\n`;
+      const blob = new Blob([txt], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "colo-de-mae-credenciais.txt";
+      a.click();
+      URL.revokeObjectURL(url);
+      setCredenciaisSalvas(true);
+      toast.success("Credenciais salvas no seu dispositivo. 💛");
+    } catch {
+      toast.error("Não foi possível baixar. Anote manualmente, por favor.");
+    }
+  };
+
   const handleSecuritySubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!security.palavra.trim() || security.palavra.trim().length < 3) {
-      toast.error("Escolha uma palavra secreta (mín. 3 caracteres).");
-      return;
-    }
-    if (!security.frase.trim() || security.frase.trim().length < 6) {
-      toast.error("Escolha uma frase secreta (mín. 6 caracteres).");
+    if (!credenciaisSalvas) {
+      toast.error('Clique em "Salvar credenciais" antes de continuar.');
       return;
     }
     if (!codigoConfirmado) {
