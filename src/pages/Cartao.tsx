@@ -160,6 +160,24 @@ const genCodigo = () => {
   return out;
 };
 
+const PALAVRAS = [
+  "girassol", "acalanto", "ninho", "abraço", "estrela", "semente", "alegria",
+  "horizonte", "manhã", "colibri", "aurora", "esperança", "lirio", "pétala",
+  "oceano", "vagalume", "primavera", "carinho", "luar", "constelação",
+];
+const FRASES = [
+  "cuidar com amor incluir com o coração",
+  "cada criança é um universo de luz",
+  "no abraço da mãe cabe o mundo inteiro",
+  "amar é acolher sem condições",
+  "pequenos gestos grandes transformações",
+  "juntos somos colo somos casa",
+  "a diferença é nossa maior beleza",
+  "afeto que floresce em cada sorriso",
+];
+const genPalavra = () => PALAVRAS[Math.floor(Math.random() * PALAVRAS.length)];
+const genFrase = () => FRASES[Math.floor(Math.random() * FRASES.length)];
+
 
 // ──────────────────────────────────────────────────────────────
 // Página
