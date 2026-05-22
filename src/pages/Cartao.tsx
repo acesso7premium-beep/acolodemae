@@ -193,6 +193,7 @@ const Cartao = () => {
   const [contact, setContact] = useState<Contact>({ email: "", whatsapp: "" });
   const [security, setSecurity] = useState<Security>({ palavra: "", frase: "", codigo: "" });
   const [codigoConfirmado, setCodigoConfirmado] = useState(false);
+  const [credenciaisSalvas, setCredenciaisSalvas] = useState(false);
   const [answers, setAnswers] = useState<Answers>({});
   const [stepIdx, setStepIdx] = useState(0);
 
