@@ -296,9 +296,11 @@ const Cartao = () => {
       id: `r-${Date.now()}`,
       wantsCard: wantsCard ?? false,
       contact,
+      security,
       answers,
       submittedAt: new Date().toISOString(),
     };
+
     try {
       const raw = localStorage.getItem(RESPOSTAS_KEY);
       const list = raw ? JSON.parse(raw) : [];
