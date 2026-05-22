@@ -35,7 +35,7 @@ type Resposta = {
   submittedAt: string;
 };
 
-const respostas: Resposta[] = [
+const mockRespostas: Resposta[] = [
   {
     id: "r-demo-001",
     nome: "Maria Silva (exemplo)",
@@ -51,9 +51,9 @@ const respostas: Resposta[] = [
 const loadRespostas = (): Resposta[] => {
   try {
     const raw = localStorage.getItem("colo-de-mae-respostas");
-    if (!raw) return respostas;
+    if (!raw) return mockRespostas;
     const arr = JSON.parse(raw) as Array<Record<string, unknown>>;
-    if (!Array.isArray(arr) || arr.length === 0) return respostas;
+    if (!Array.isArray(arr) || arr.length === 0) return mockRespostas;
     return arr.map((r, i) => {
       const answers = (r.answers as Record<string, unknown>) ?? {};
       const contact = (r.contact as Record<string, unknown>) ?? {};
@@ -69,7 +69,7 @@ const loadRespostas = (): Resposta[] => {
       };
     });
   } catch {
-    return respostas;
+    return mockRespostas;
   }
 };
 
