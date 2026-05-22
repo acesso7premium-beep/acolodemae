@@ -250,9 +250,14 @@ const Cartao = () => {
       return;
     }
     setShowContact(false);
-    // Gera código único e abre etapa de segurança
-    setSecurity((s) => ({ ...s, codigo: s.codigo || genCodigo() }));
+    // Gera credenciais aleatórias e abre etapa de segurança
+    setSecurity({
+      palavra: genPalavra(),
+      frase: genFrase(),
+      codigo: genCodigo(),
+    });
     setCodigoConfirmado(false);
+    setCredenciaisSalvas(false);
     setShowSecurity(true);
   };
 
