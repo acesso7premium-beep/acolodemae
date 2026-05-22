@@ -535,7 +535,7 @@ const Cartao = () => {
               <div className="flex flex-col gap-4">
                 <div className="flex flex-col gap-1.5">
                   <Label htmlFor="ct-email" className="flex items-center gap-1.5 font-semibold">
-                    <Mail size={14} /> Melhor e-mail
+                    <Mail size={14} /> E-mail
                   </Label>
                   <Input
                     id="ct-email"
