@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowDown, ExternalLink } from "lucide-react";
+import { ArrowDown, ExternalLink, Sparkles } from "lucide-react";
 import heroImage from "@/assets/hero-children.jpg";
 
 const HeroSection = () => {
@@ -51,40 +51,37 @@ const HeroSection = () => {
             transition={{ delay: 0.5 }}
             className="flex flex-wrap items-center gap-4 pt-2"
           >
-            {/* Primary — solid yellow */}
+            {/* Primary — Cartão Colo de Mãe (destaque) */}
             <Button
               asChild
               size="lg"
-              className="group relative min-h-14 overflow-hidden rounded-full bg-tea-yellow px-8 font-bold text-background shadow-[0_10px_30px_-10px_hsl(var(--tea-yellow)/0.6)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_40px_-12px_hsl(var(--tea-yellow)/0.8)] focus-visible:ring-2 focus-visible:ring-tea-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="group relative min-h-14 overflow-hidden rounded-full bg-gradient-to-r from-tea-yellow via-[#FFB347] to-tea-yellow bg-[length:200%_100%] px-8 font-bold text-background shadow-[0_12px_40px_-8px_hsl(var(--ring)/0.7)] ring-2 ring-tea-yellow/40 ring-offset-2 ring-offset-background transition-all duration-500 hover:-translate-y-0.5 hover:bg-[position:100%_0] hover:shadow-[0_20px_50px_-10px_hsl(var(--ring)/0.9)] focus-visible:ring-tea-yellow"
             >
-              <a href="#atividades">
-                <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-                <span className="relative">Conheça nossas Atividades</span>
-                <ArrowDown
-                  size={18}
-                  className="relative transition-transform duration-300 group-hover:translate-y-0.5"
-                />
+              <a
+                href="/cartao"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Abrir cadastro do Cartão Colo de Mãe em nova aba"
+              >
+                {/* halo pulsante */}
+                <span className="pointer-events-none absolute inset-0 -z-10 animate-ping rounded-full bg-tea-yellow/40" aria-hidden />
+                <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+                <Sparkles size={18} className="relative" />
+                <span className="relative">Cartão Colo de Mãe</span>
+                <ExternalLink size={16} className="relative transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </a>
             </Button>
 
-            {/* Secondary — outlined glass, opens external card site */}
+            {/* Secondary — Atividades */}
             <Button
               asChild
               size="lg"
               variant="outline"
               className="group min-h-14 rounded-full border-2 border-foreground/20 bg-foreground/5 px-8 font-bold text-foreground backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-tea-yellow hover:bg-tea-yellow/10 hover:text-tea-yellow"
             >
-              <a
-                href="https://cartao-colo-de-mae.lovable.app/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Abrir site do Cartão Colo de Mãe em nova aba"
-              >
-                Cartão Colo de Mãe
-                <ExternalLink
-                  size={18}
-                  className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                />
+              <a href="#atividades">
+                Conheça nossas Atividades
+                <ArrowDown size={18} className="transition-transform duration-300 group-hover:translate-y-0.5" />
               </a>
             </Button>
           </motion.div>
