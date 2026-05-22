@@ -573,8 +573,125 @@ const Cartao = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Modal de Segurança */}
+      <AnimatePresence>
+        {showSecurity && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 p-4 backdrop-blur"
+          >
+            <motion.form
+              initial={{ scale: 0.95, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 20 }}
+              onSubmit={handleSecuritySubmit}
+              className="relative w-full max-w-lg rounded-2xl border-2 border-tea-yellow/40 bg-card p-8 shadow-2xl"
+            >
+              <div className="mb-4 flex items-center justify-center">
+                <div className="rounded-full bg-tea-yellow/15 p-3">
+                  <Shield className="text-tea-yellow" size={28} />
+                </div>
+              </div>
+              <h3 className="mb-2 text-center font-heading text-2xl font-extrabold">
+                Proteja seu cadastro 🔐
+              </h3>
+              <p className="mb-6 text-center text-sm text-muted-foreground">
+                Crie suas chaves secretas. Elas servirão para recuperar e proteger
+                o acesso ao seu Cartão Colo de Mãe.
+              </p>
+
+              <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-1.5">
+                  <Label htmlFor="sec-palavra" className="flex items-center gap-1.5 font-semibold">
+                    <KeyRound size={14} /> Palavra secreta
+                  </Label>
+                  <Input
+                    id="sec-palavra"
+                    type="text"
+                    required
+                    minLength={3}
+                    maxLength={40}
+                    value={security.palavra}
+                    onChange={(e) => setSecurity({ ...security, palavra: e.target.value })}
+                    placeholder="Ex.: girassol"
+                    className="min-h-12"
+                  />
+                </div>
+
+                <div className="flex flex-col gap-1.5">
+                  <Label htmlFor="sec-frase" className="flex items-center gap-1.5 font-semibold">
+                    <Lock size={14} /> Frase secreta
+                  </Label>
+                  <Input
+                    id="sec-frase"
+                    type="text"
+                    required
+                    minLength={6}
+                    maxLength={120}
+                    value={security.frase}
+                    onChange={(e) => setSecurity({ ...security, frase: e.target.value })}
+                    placeholder="Ex.: cuidar com amor incluir com o coração"
+                    className="min-h-12"
+                  />
+                </div>
+
+                <div className="flex flex-col gap-2 rounded-xl border-2 border-dashed border-tea-yellow/40 bg-background/40 p-4">
+                  <Label className="flex items-center gap-1.5 font-semibold">
+                    <Shield size={14} /> Código único de segurança
+                  </Label>
+                  <p className="text-xs text-muted-foreground">
+                    Anote este código em local seguro. Ele tem 5 caracteres (letras
+                    maiúsculas e números) e não poderá ser recuperado depois.
+                  </p>
+                  <div className="flex items-center gap-2">
+                    <div className="flex-1 select-all rounded-lg bg-tea-yellow/10 px-4 py-3 text-center font-mono text-2xl font-extrabold tracking-[0.4em] text-tea-yellow">
+                      {security.codigo}
+                    </div>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={copiarCodigo}
+                      className="min-h-12 rounded-xl"
+                      aria-label="Copiar código"
+                    >
+                      <Copy size={16} />
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => setSecurity({ ...security, codigo: genCodigo() })}
+                      className="min-h-12 rounded-xl"
+                    >
+                      Gerar novo
+                    </Button>
+                  </div>
+                  <label className="mt-1 flex cursor-pointer items-center gap-2 text-sm">
+                    <Checkbox
+                      checked={codigoConfirmado}
+                      onCheckedChange={(c) => setCodigoConfirmado(Boolean(c))}
+                    />
+                    <span>Já anotei meu código em um lugar seguro.</span>
+                  </label>
+                </div>
+
+                <Button
+                  type="submit"
+                  className="mt-2 min-h-12 rounded-full bg-tea-yellow font-bold text-background hover:bg-tea-yellow/90"
+                >
+                  Continuar para o cadastro
+                  <ArrowRight size={16} />
+                </Button>
+              </div>
+            </motion.form>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
+
 };
 
 // ──────────────────────────────────────────────────────────────
