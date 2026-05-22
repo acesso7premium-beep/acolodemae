@@ -4,11 +4,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import logo from "@/assets/logo-colo-de-mae.png";
 
 const navItems = [
-  { label: "Sobre", href: "#sobre" },
-  { label: "Atividades", href: "#atividades" },
-  { label: "Equipe", href: "#equipe" },
-  { label: "Galeria", href: "#galeria" },
-  { label: "Contato", href: "#contato" },
+  { label: "Sobre", href: "/#sobre" },
+  { label: "Atividades", href: "/#atividades" },
+  { label: "Equipe", href: "/#equipe" },
+  { label: "Galeria", href: "/#galeria" },
+  { label: "Contato", href: "/#contato" },
+  { label: "Respostas", href: "/respostas" },
 ];
 
 const Header = () => {
