@@ -1,91 +1,111 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowDown, ExternalLink } from "lucide-react";
+import heroImage from "@/assets/hero-children.jpg";
 
 const HeroSection = () => {
   return (
-    <section className="relative flex min-h-screen items-center overflow-hidden pt-16">
-      {/* Floating bubbles (TEA Festival vibe) */}
-      <div className="tea-bubble left-[8%] top-[18%] h-56 w-56 bg-tea-blue animate-float" />
-      <div className="tea-bubble right-[12%] top-[10%] h-72 w-72 bg-tea-green/60 animate-float" style={{ animationDelay: "1.5s" }} />
-      <div className="tea-bubble left-[40%] bottom-[8%] h-80 w-80 bg-tea-yellow/30 animate-float" style={{ animationDelay: "3s" }} />
-      <div className="tea-bubble right-[5%] bottom-[15%] h-48 w-48 bg-tea-cyan/40 animate-float" style={{ animationDelay: "2s" }} />
+    <section className="relative flex min-h-screen items-center overflow-hidden pt-20">
+      {/* Floating ambient bubbles */}
+      <div className="tea-bubble left-[5%] top-[20%] h-56 w-56 bg-tea-blue/40 animate-float" />
+      <div className="tea-bubble left-[45%] bottom-[10%] h-72 w-72 bg-tea-yellow/15 animate-float" style={{ animationDelay: "2s" }} />
+      <div className="tea-bubble right-[3%] top-[55%] h-48 w-48 bg-tea-cyan/30 animate-float" style={{ animationDelay: "1.2s" }} />
 
-      <div className="container relative z-10 mx-auto flex flex-col items-center gap-10 px-4 text-center">
-        <motion.span
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="inline-flex items-center gap-2 rounded-full border-2 border-tea-green/60 bg-tea-green/10 px-5 py-2 text-xs font-semibold uppercase tracking-wider text-tea-green md:text-sm"
-        >
-          🧩 Associação Colo de Mãe — Acolhimento TEA & PcD
-        </motion.span>
-
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          className="font-heading text-5xl font-extrabold leading-[1.05] tracking-tight text-foreground md:text-7xl lg:text-8xl"
-        >
-          Cuidar com <span className="text-tea-red">amor</span>,
-          <br />
-          incluir com o <span className="text-tea-yellow">coração</span>{" "}
-          <span className="text-tea-cyan">💙</span>
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
-          className="max-w-2xl text-base text-muted-foreground md:text-lg"
-        >
-          Acolhimento, desenvolvimento e inclusão para crianças com Transtorno do
-          Espectro Autista e suas famílias. Um espaço seguro onde cada criança
-          pode ser ela mesma.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="flex flex-wrap items-center justify-center gap-4"
-        >
-          <Button
-            asChild
-            size="lg"
-            className="min-h-14 rounded-full bg-tea-green px-8 font-bold text-white hover:bg-tea-green/90"
+      <div className="container relative z-10 mx-auto grid grid-cols-1 items-center gap-12 px-4 lg:grid-cols-2 lg:gap-16">
+        {/* LEFT — text column */}
+        <div className="flex flex-col items-start gap-7 text-left">
+          <motion.span
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15 }}
+            className="inline-flex items-center gap-2 rounded-full border-2 border-tea-yellow/70 bg-tea-yellow/10 px-5 py-2 text-xs font-bold uppercase tracking-[0.18em] text-tea-yellow"
           >
-            <a href="#atividades">
-              Conheça nossas Atividades
-              <ArrowDown size={18} />
-            </a>
-          </Button>
+            Associação Colo de Mãe
+          </motion.span>
 
-          <Button
-            asChild
-            size="lg"
-            className="min-h-14 rounded-full bg-tea-yellow px-8 font-bold text-background shadow-lg shadow-tea-yellow/20 hover:bg-tea-yellow/90"
+          <motion.h1
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="font-heading text-5xl font-extrabold leading-[1.02] tracking-tight text-foreground md:text-6xl lg:text-7xl"
           >
-            <a
-              href="https://cartao-colo-de-mae.lovable.app/"
-              target="_blank"
-              rel="noopener noreferrer"
+            Cuidar com <span className="text-tea-yellow">amor</span>,
+            <br />
+            incluir com o <span className="text-tea-yellow">coração.</span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.35 }}
+            className="max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg"
+          >
+            Acolhimento, desenvolvimento e inclusão para crianças com Transtorno
+            do Espectro Autista e suas famílias. Com amor, dedicação e respeito,
+            criamos um espaço seguro onde cada criança pode ser ela mesma.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="flex flex-wrap items-center gap-4 pt-2"
+          >
+            {/* Primary — solid yellow */}
+            <Button
+              asChild
+              size="lg"
+              className="group relative min-h-14 overflow-hidden rounded-full bg-tea-yellow px-8 font-bold text-background shadow-[0_10px_30px_-10px_hsl(var(--tea-yellow)/0.6)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_40px_-12px_hsl(var(--tea-yellow)/0.8)] focus-visible:ring-2 focus-visible:ring-tea-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
-              Cartão Colo de Mãe
-              <ExternalLink size={18} />
-            </a>
-          </Button>
+              <a href="#atividades">
+                <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+                <span className="relative">Conheça nossas Atividades</span>
+                <ArrowDown
+                  size={18}
+                  className="relative transition-transform duration-300 group-hover:translate-y-0.5"
+                />
+              </a>
+            </Button>
 
-        </motion.div>
+            {/* Secondary — outlined glass, opens external card site */}
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="group min-h-14 rounded-full border-2 border-foreground/20 bg-foreground/5 px-8 font-bold text-foreground backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-tea-yellow hover:bg-tea-yellow/10 hover:text-tea-yellow"
+            >
+              <a
+                href="https://cartao-colo-de-mae.lovable.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Abrir site do Cartão Colo de Mãe em nova aba"
+              >
+                Cartão Colo de Mãe
+                <ExternalLink
+                  size={18}
+                  className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
+              </a>
+            </Button>
+          </motion.div>
+        </div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-          className="text-sm text-muted-foreground"
+        {/* RIGHT — hero image */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="relative"
         >
-          💙 Feito com carinho para famílias PcD e TEA
-        </motion.p>
+          <div className="absolute -inset-6 rounded-[2rem] bg-tea-yellow/20 blur-3xl" aria-hidden />
+          <img
+            src={heroImage}
+            alt="Crianças em atividade musical inclusiva com terapeutas da Associação Colo de Mãe"
+            width={1280}
+            height={1024}
+            className="relative w-full rounded-[2rem] object-cover shadow-2xl ring-1 ring-foreground/10"
+          />
+        </motion.div>
       </div>
     </section>
   );
