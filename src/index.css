@@ -4,43 +4,43 @@
 
 @layer base {
   :root {
-    --background: 222 47% 11%;
+    --background: 228 67% 14%;
     --foreground: 210 40% 98%;
 
-    --card: 222 47% 14%;
+    --card: 228 60% 19%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 222 47% 14%;
+    --popover: 228 60% 19%;
     --popover-foreground: 210 40% 98%;
 
     --primary: 48 96% 53%;
-    --primary-foreground: 222 47% 11%;
+    --primary-foreground: 228 67% 14%;
 
-    --secondary: 217 33% 17%;
+    --secondary: 228 45% 24%;
     --secondary-foreground: 210 40% 98%;
 
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 228 45% 24%;
+    --muted-foreground: 215 25% 72%;
 
     --accent: 199 89% 48%;
-    --accent-foreground: 222 47% 11%;
+    --accent-foreground: 228 67% 14%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217 33% 20%;
-    --input: 217 33% 20%;
+    --border: 228 40% 30%;
+    --input: 228 40% 30%;
     --ring: 48 96% 53%;
 
     --radius: 0.75rem;
 
-    --sidebar-background: 222 47% 9%;
+    --sidebar-background: 228 70% 11%;
     --sidebar-foreground: 210 40% 98%;
     --sidebar-primary: 48 96% 53%;
-    --sidebar-primary-foreground: 222 47% 11%;
-    --sidebar-accent: 217 33% 17%;
+    --sidebar-primary-foreground: 228 67% 14%;
+    --sidebar-accent: 228 45% 24%;
     --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 217 33% 20%;
+    --sidebar-border: 228 40% 30%;
     --sidebar-ring: 48 96% 53%;
   }
 }
@@ -57,9 +57,9 @@
   body {
     @apply bg-background text-foreground font-body antialiased;
     background-image:
-      radial-gradient(1200px 800px at 20% 10%, hsl(217 60% 22%) 0%, transparent 60%),
-      radial-gradient(1000px 700px at 90% 90%, hsl(222 55% 16%) 0%, transparent 55%),
-      linear-gradient(180deg, hsl(222 47% 11%) 0%, hsl(222 50% 9%) 100%);
+      radial-gradient(1200px 800px at 20% 10%, hsl(228 55% 26%) 0%, transparent 60%),
+      radial-gradient(1000px 700px at 90% 90%, hsl(228 60% 18%) 0%, transparent 55%),
+      linear-gradient(180deg, hsl(228 67% 14%) 0%, hsl(228 70% 11%) 100%);
     background-attachment: fixed;
   }
 }
