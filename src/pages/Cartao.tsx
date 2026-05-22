@@ -12,8 +12,9 @@ import {
   Phone,
   Shield,
   Sparkles,
+  Download,
+  RefreshCw,
   X,
-
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -160,6 +161,24 @@ const genCodigo = () => {
   return out;
 };
 
+const PALAVRAS = [
+  "girassol", "acalanto", "ninho", "abraço", "estrela", "semente", "alegria",
+  "horizonte", "manhã", "colibri", "aurora", "esperança", "lirio", "pétala",
+  "oceano", "vagalume", "primavera", "carinho", "luar", "constelação",
+];
+const FRASES = [
+  "cuidar com amor incluir com o coração",
+  "cada criança é um universo de luz",
+  "no abraço da mãe cabe o mundo inteiro",
+  "amar é acolher sem condições",
+  "pequenos gestos grandes transformações",
+  "juntos somos colo somos casa",
+  "a diferença é nossa maior beleza",
+  "afeto que floresce em cada sorriso",
+];
+const genPalavra = () => PALAVRAS[Math.floor(Math.random() * PALAVRAS.length)];
+const genFrase = () => FRASES[Math.floor(Math.random() * FRASES.length)];
+
 
 // ──────────────────────────────────────────────────────────────
 // Página
@@ -175,6 +194,7 @@ const Cartao = () => {
   const [contact, setContact] = useState<Contact>({ email: "", whatsapp: "" });
   const [security, setSecurity] = useState<Security>({ palavra: "", frase: "", codigo: "" });
   const [codigoConfirmado, setCodigoConfirmado] = useState(false);
+  const [credenciaisSalvas, setCredenciaisSalvas] = useState(false);
   const [answers, setAnswers] = useState<Answers>({});
   const [stepIdx, setStepIdx] = useState(0);
 
@@ -231,20 +251,42 @@ const Cartao = () => {
       return;
     }
     setShowContact(false);
-    // Gera código único e abre etapa de segurança
-    setSecurity((s) => ({ ...s, codigo: s.codigo || genCodigo() }));
+    // Gera credenciais aleatórias e abre etapa de segurança
+    setSecurity({
+      palavra: genPalavra(),
+      frase: genFrase(),
+      codigo: genCodigo(),
+    });
     setCodigoConfirmado(false);
+    setCredenciaisSalvas(false);
     setShowSecurity(true);
+  };
+
+  const handleSalvarCredenciais = async () => {
+    try {
+      const txt =
+        `CARTÃO COLO DE MÃE — credenciais de segurança\n` +
+        `Palavra secreta: ${security.palavra}\n` +
+        `Frase secreta: ${security.frase}\n` +
+        `Código único: ${security.codigo}\n`;
+      const blob = new Blob([txt], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "colo-de-mae-credenciais.txt";
+      a.click();
+      URL.revokeObjectURL(url);
+      setCredenciaisSalvas(true);
+      toast.success("Credenciais salvas no seu dispositivo. 💛");
+    } catch {
+      toast.error("Não foi possível baixar. Anote manualmente, por favor.");
+    }
   };
 
   const handleSecuritySubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!security.palavra.trim() || security.palavra.trim().length < 3) {
-      toast.error("Escolha uma palavra secreta (mín. 3 caracteres).");
-      return;
-    }
-    if (!security.frase.trim() || security.frase.trim().length < 6) {
-      toast.error("Escolha uma frase secreta (mín. 6 caracteres).");
+    if (!credenciaisSalvas) {
+      toast.error('Clique em "Salvar credenciais" antes de continuar.');
       return;
     }
     if (!codigoConfirmado) {
@@ -604,38 +646,55 @@ const Cartao = () => {
               </p>
 
               <div className="flex flex-col gap-4">
+                <p className="rounded-lg bg-tea-yellow/10 px-3 py-2 text-center text-xs text-tea-yellow">
+                  Geramos credenciais aleatórias para você. Você pode gerar novas
+                  quantas vezes quiser e depois <strong>salvar</strong> em local seguro.
+                </p>
+
                 <div className="flex flex-col gap-1.5">
-                  <Label htmlFor="sec-palavra" className="flex items-center gap-1.5 font-semibold">
+                  <Label className="flex items-center gap-1.5 font-semibold">
                     <KeyRound size={14} /> Palavra secreta
                   </Label>
-                  <Input
-                    id="sec-palavra"
-                    type="text"
-                    required
-                    minLength={3}
-                    maxLength={40}
-                    value={security.palavra}
-                    onChange={(e) => setSecurity({ ...security, palavra: e.target.value })}
-                    placeholder="Ex.: girassol"
-                    className="min-h-12"
-                  />
+                  <div className="flex items-center gap-2">
+                    <div className="flex-1 select-all rounded-lg border border-border bg-background/40 px-4 py-3 font-mono text-lg font-bold text-foreground">
+                      {security.palavra}
+                    </div>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => {
+                        setSecurity({ ...security, palavra: genPalavra() });
+                        setCredenciaisSalvas(false);
+                      }}
+                      className="min-h-12 rounded-xl"
+                      aria-label="Gerar nova palavra"
+                    >
+                      <RefreshCw size={16} />
+                    </Button>
+                  </div>
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <Label htmlFor="sec-frase" className="flex items-center gap-1.5 font-semibold">
+                  <Label className="flex items-center gap-1.5 font-semibold">
                     <Lock size={14} /> Frase secreta
                   </Label>
-                  <Input
-                    id="sec-frase"
-                    type="text"
-                    required
-                    minLength={6}
-                    maxLength={120}
-                    value={security.frase}
-                    onChange={(e) => setSecurity({ ...security, frase: e.target.value })}
-                    placeholder="Ex.: cuidar com amor incluir com o coração"
-                    className="min-h-12"
-                  />
+                  <div className="flex items-center gap-2">
+                    <div className="flex-1 select-all rounded-lg border border-border bg-background/40 px-4 py-3 font-mono text-base font-semibold text-foreground">
+                      {security.frase}
+                    </div>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => {
+                        setSecurity({ ...security, frase: genFrase() });
+                        setCredenciaisSalvas(false);
+                      }}
+                      className="min-h-12 rounded-xl"
+                      aria-label="Gerar nova frase"
+                    >
+                      <RefreshCw size={16} />
+                    </Button>
+                  </div>
                 </div>
 
                 <div className="flex flex-col gap-2 rounded-xl border-2 border-dashed border-tea-yellow/40 bg-background/40 p-4">
@@ -662,10 +721,13 @@ const Cartao = () => {
                     <Button
                       type="button"
                       variant="outline"
-                      onClick={() => setSecurity({ ...security, codigo: genCodigo() })}
+                      onClick={() => {
+                        setSecurity({ ...security, codigo: genCodigo() });
+                        setCredenciaisSalvas(false);
+                      }}
                       className="min-h-12 rounded-xl"
                     >
-                      Gerar novo
+                      <RefreshCw size={16} />
                     </Button>
                   </div>
                   <label className="mt-1 flex cursor-pointer items-center gap-2 text-sm">
@@ -678,8 +740,19 @@ const Cartao = () => {
                 </div>
 
                 <Button
+                  type="button"
+                  onClick={handleSalvarCredenciais}
+                  variant="outline"
+                  className="min-h-12 rounded-full border-2 border-tea-yellow/60 font-bold text-tea-yellow hover:bg-tea-yellow/10"
+                >
+                  <Download size={16} />
+                  {credenciaisSalvas ? "Credenciais salvas ✓" : "Salvar credenciais (obrigatório)"}
+                </Button>
+
+                <Button
                   type="submit"
-                  className="mt-2 min-h-12 rounded-full bg-tea-yellow font-bold text-background hover:bg-tea-yellow/90"
+                  disabled={!credenciaisSalvas || !codigoConfirmado}
+                  className="mt-1 min-h-12 rounded-full bg-tea-yellow font-bold text-background hover:bg-tea-yellow/90 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   Continuar para o cadastro
                   <ArrowRight size={16} />
