@@ -4,11 +4,16 @@ import {
   ArrowLeft,
   ArrowRight,
   CheckCircle2,
+  Copy,
   Heart,
+  KeyRound,
+  Lock,
   Mail,
   Phone,
+  Shield,
   Sparkles,
   X,
+
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
