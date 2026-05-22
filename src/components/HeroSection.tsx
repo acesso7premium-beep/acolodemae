@@ -76,13 +76,6 @@ const HeroSection = () => {
             </a>
           </Button>
 
-          <Button
-            asChild
-            size="lg"
-            className="min-h-14 rounded-full bg-tea-blue px-8 font-bold text-white hover:bg-tea-blue/90"
-          >
-            <a href="#sobre">Movimento TEA/PcD</a>
-          </Button>
         </motion.div>
 
         <motion.p
