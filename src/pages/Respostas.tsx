@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
@@ -37,33 +37,41 @@ type Resposta = {
 
 const mockRespostas: Resposta[] = [
   {
-    id: "r-001",
-    nome: "Maria Silva",
+    id: "r-demo-001",
+    nome: "Maria Silva (exemplo)",
     email: "maria@email.com",
     whatsapp: "(11) 91234-5678",
     wantsCard: true,
     diagnostico: "TEA Nível 2",
     submittedAt: "2026-05-20T14:30:00Z",
   },
-  {
-    id: "r-002",
-    nome: "João Pereira",
-    email: "joao@email.com",
-    whatsapp: "(11) 99876-5432",
-    wantsCard: true,
-    diagnostico: "TDAH",
-    submittedAt: "2026-05-21T09:15:00Z",
-  },
-  {
-    id: "r-003",
-    nome: "Ana Costa",
-    email: "ana@email.com",
-    whatsapp: "(11) 98765-4321",
-    wantsCard: false,
-    diagnostico: "Síndrome de Down",
-    submittedAt: "2026-05-22T11:00:00Z",
-  },
 ];
+
+// Normaliza respostas reais salvas pelo quiz em /cartao
+const loadRespostas = (): Resposta[] => {
+  try {
+    const raw = localStorage.getItem("colo-de-mae-respostas");
+    if (!raw) return mockRespostas;
+    const arr = JSON.parse(raw) as Array<Record<string, unknown>>;
+    if (!Array.isArray(arr) || arr.length === 0) return mockRespostas;
+    return arr.map((r, i) => {
+      const answers = (r.answers as Record<string, unknown>) ?? {};
+      const contact = (r.contact as Record<string, unknown>) ?? {};
+      const diags = answers.quaisDiagnosticos;
+      return {
+        id: (r.id as string) ?? `r-${i}`,
+        nome: (answers.nomePcD as string) ?? (answers.nomeResp as string) ?? "—",
+        email: (contact.email as string) ?? "—",
+        whatsapp: (contact.whatsapp as string) ?? "—",
+        wantsCard: Boolean(r.wantsCard),
+        diagnostico: Array.isArray(diags) ? diags.join(", ") : ((diags as string) ?? "—"),
+        submittedAt: (r.submittedAt as string) ?? new Date().toISOString(),
+      };
+    });
+  } catch {
+    return mockRespostas;
+  }
+};
 
 const formats = [
   { id: "csv", label: "CSV", icon: FileSpreadsheet, color: "text-tea-green" },
@@ -89,31 +97,39 @@ const Respostas = () => {
   const [autoBackup, setAutoBackup] = useState(true);
   const [encryptBackup, setEncryptBackup] = useState(true);
   const [confirmDelete, setConfirmDelete] = useState(true);
+  const [respostas, setRespostas] = useState<Resposta[]>([]);
+
+  useEffect(() => {
+    setRespostas(loadRespostas());
+  }, []);
 
   const stats = useMemo(
     () => ({
-      total: mockRespostas.length,
-      cartao: mockRespostas.filter((r) => r.wantsCard).length,
-      hoje: 1,
+      total: respostas.length,
+      cartao: respostas.filter((r) => r.wantsCard).length,
+      hoje: respostas.filter(
+        (r) => new Date(r.submittedAt).toDateString() === new Date().toDateString()
+      ).length,
     }),
-    []
+    [respostas]
   );
+
 
   const handleExport = (id: string) => {
     if (id === "csv") {
       const header = "id,nome,email,whatsapp,wantsCard,diagnostico,submittedAt\n";
-      const rows = mockRespostas
+      const rows = respostas
         .map((r) =>
           [r.id, r.nome, r.email, r.whatsapp, r.wantsCard, r.diagnostico, r.submittedAt].join(",")
         )
         .join("\n");
       downloadFile("respostas.csv", header + rows, "text/csv");
     } else if (id === "json") {
-      downloadFile("respostas.json", JSON.stringify(mockRespostas, null, 2), "application/json");
+      downloadFile("respostas.json", JSON.stringify(respostas, null, 2), "application/json");
     } else if (id === "md") {
       const md =
         "# Respostas — Cartão Colo de Mãe\n\n" +
-        mockRespostas
+        respostas
           .map(
             (r) =>
               `## ${r.nome}\n- Email: ${r.email}\n- WhatsApp: ${r.whatsapp}\n- Cartão: ${r.wantsCard ? "Sim" : "Não"}\n- Diagnóstico: ${r.diagnostico}\n- Data: ${r.submittedAt}\n`
@@ -121,7 +137,7 @@ const Respostas = () => {
           .join("\n");
       downloadFile("respostas.md", md, "text/markdown");
     } else if (id === "txt") {
-      const txt = mockRespostas
+      const txt = respostas
         .map((r) => `${r.nome} | ${r.email} | ${r.whatsapp} | ${r.diagnostico}`)
         .join("\n");
       downloadFile("respostas.txt", txt, "text/plain");
@@ -242,7 +258,7 @@ const Respostas = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {mockRespostas.map((r) => (
+                    {respostas.map((r) => (
                       <tr key={r.id} className="border-b border-border/40 last:border-0">
                         <td className="py-3 pr-4 font-medium">{r.nome}</td>
                         <td className="py-3 pr-4 text-muted-foreground">
