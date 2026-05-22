@@ -35,7 +35,7 @@ type Resposta = {
   submittedAt: string;
 };
 
-const mockRespostas: Resposta[] = [
+const respostas: Resposta[] = [
   {
     id: "r-demo-001",
     nome: "Maria Silva (exemplo)",
@@ -51,9 +51,9 @@ const mockRespostas: Resposta[] = [
 const loadRespostas = (): Resposta[] => {
   try {
     const raw = localStorage.getItem("colo-de-mae-respostas");
-    if (!raw) return mockRespostas;
+    if (!raw) return respostas;
     const arr = JSON.parse(raw) as Array<Record<string, unknown>>;
-    if (!Array.isArray(arr) || arr.length === 0) return mockRespostas;
+    if (!Array.isArray(arr) || arr.length === 0) return respostas;
     return arr.map((r, i) => {
       const answers = (r.answers as Record<string, unknown>) ?? {};
       const contact = (r.contact as Record<string, unknown>) ?? {};
@@ -69,7 +69,7 @@ const loadRespostas = (): Resposta[] => {
       };
     });
   } catch {
-    return mockRespostas;
+    return respostas;
   }
 };
 
@@ -118,18 +118,18 @@ const Respostas = () => {
   const handleExport = (id: string) => {
     if (id === "csv") {
       const header = "id,nome,email,whatsapp,wantsCard,diagnostico,submittedAt\n";
-      const rows = mockRespostas
+      const rows = respostas
         .map((r) =>
           [r.id, r.nome, r.email, r.whatsapp, r.wantsCard, r.diagnostico, r.submittedAt].join(",")
         )
         .join("\n");
       downloadFile("respostas.csv", header + rows, "text/csv");
     } else if (id === "json") {
-      downloadFile("respostas.json", JSON.stringify(mockRespostas, null, 2), "application/json");
+      downloadFile("respostas.json", JSON.stringify(respostas, null, 2), "application/json");
     } else if (id === "md") {
       const md =
         "# Respostas — Cartão Colo de Mãe\n\n" +
-        mockRespostas
+        respostas
           .map(
             (r) =>
               `## ${r.nome}\n- Email: ${r.email}\n- WhatsApp: ${r.whatsapp}\n- Cartão: ${r.wantsCard ? "Sim" : "Não"}\n- Diagnóstico: ${r.diagnostico}\n- Data: ${r.submittedAt}\n`
@@ -137,7 +137,7 @@ const Respostas = () => {
           .join("\n");
       downloadFile("respostas.md", md, "text/markdown");
     } else if (id === "txt") {
-      const txt = mockRespostas
+      const txt = respostas
         .map((r) => `${r.nome} | ${r.email} | ${r.whatsapp} | ${r.diagnostico}`)
         .join("\n");
       downloadFile("respostas.txt", txt, "text/plain");
@@ -258,7 +258,7 @@ const Respostas = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {mockRespostas.map((r) => (
+                    {respostas.map((r) => (
                       <tr key={r.id} className="border-b border-border/40 last:border-0">
                         <td className="py-3 pr-4 font-medium">{r.nome}</td>
                         <td className="py-3 pr-4 text-muted-foreground">
