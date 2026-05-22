@@ -170,8 +170,11 @@ type Stage = "hero" | "quiz" | "done";
 const Cartao = () => {
   const [stage, setStage] = useState<Stage>("hero");
   const [showContact, setShowContact] = useState(false);
+  const [showSecurity, setShowSecurity] = useState(false);
   const [wantsCard, setWantsCard] = useState<boolean | null>(null);
   const [contact, setContact] = useState<Contact>({ email: "", whatsapp: "" });
+  const [security, setSecurity] = useState<Security>({ palavra: "", frase: "", codigo: "" });
+  const [codigoConfirmado, setCodigoConfirmado] = useState(false);
   const [answers, setAnswers] = useState<Answers>({});
   const [stepIdx, setStepIdx] = useState(0);
 
@@ -183,6 +186,7 @@ const Cartao = () => {
         const saved = JSON.parse(raw);
         if (saved.answers) setAnswers(saved.answers);
         if (saved.contact) setContact(saved.contact);
+        if (saved.security) setSecurity(saved.security);
         if (typeof saved.wantsCard === "boolean") setWantsCard(saved.wantsCard);
         if (saved.stage) setStage(saved.stage);
         if (typeof saved.stepIdx === "number") setStepIdx(saved.stepIdx);
@@ -198,12 +202,12 @@ const Cartao = () => {
     try {
       localStorage.setItem(
         QUIZ_KEY,
-        JSON.stringify({ answers, contact, wantsCard, stage, stepIdx })
+        JSON.stringify({ answers, contact, security, wantsCard, stage, stepIdx })
       );
     } catch {
       /* noop */
     }
-  }, [answers, contact, wantsCard, stage, stepIdx]);
+  }, [answers, contact, security, wantsCard, stage, stepIdx]);
 
   const step = STEPS[stepIdx];
   const progress = useMemo(
@@ -227,8 +231,40 @@ const Cartao = () => {
       return;
     }
     setShowContact(false);
+    // Gera código único e abre etapa de segurança
+    setSecurity((s) => ({ ...s, codigo: s.codigo || genCodigo() }));
+    setCodigoConfirmado(false);
+    setShowSecurity(true);
+  };
+
+  const handleSecuritySubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!security.palavra.trim() || security.palavra.trim().length < 3) {
+      toast.error("Escolha uma palavra secreta (mín. 3 caracteres).");
+      return;
+    }
+    if (!security.frase.trim() || security.frase.trim().length < 6) {
+      toast.error("Escolha uma frase secreta (mín. 6 caracteres).");
+      return;
+    }
+    if (!codigoConfirmado) {
+      toast.error("Confirme que anotou seu código único de segurança.");
+      return;
+    }
+    setShowSecurity(false);
+    toast.success("Dados de segurança salvos com carinho. 💛");
     setStage("quiz");
   };
+
+  const copiarCodigo = async () => {
+    try {
+      await navigator.clipboard.writeText(security.codigo);
+      toast.success("Código copiado!");
+    } catch {
+      toast.error("Não foi possível copiar.");
+    }
+  };
+
 
   const validateStep = (): boolean => {
     for (const f of step.fields) {
