@@ -56,5 +56,34 @@
 
   body {
     @apply bg-background text-foreground font-body antialiased;
+    background-image:
+      radial-gradient(1200px 800px at 20% 10%, hsl(217 60% 22%) 0%, transparent 60%),
+      radial-gradient(1000px 700px at 90% 90%, hsl(222 55% 16%) 0%, transparent 55%),
+      linear-gradient(180deg, hsl(222 47% 11%) 0%, hsl(222 50% 9%) 100%);
+    background-attachment: fixed;
   }
 }
+
+@layer utilities {
+  .tea-bubble {
+    @apply pointer-events-none absolute rounded-full blur-3xl opacity-40;
+  }
+  .text-tea-red { color: #E63946; }
+  .text-tea-orange { color: #F4A261; }
+  .text-tea-yellow { color: #FFD23F; }
+  .text-tea-green { color: #2A9D8F; }
+  .text-tea-blue { color: #1D4ED8; }
+  .text-tea-cyan { color: #38BDF8; }
+  .bg-tea-green { background-color: #2A9D8F; }
+  .bg-tea-yellow { background-color: #FFD23F; }
+  .bg-tea-blue { background-color: #1D4ED8; }
+
+  .animate-float {
+    animation: float 9s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) translateX(0); }
+    50% { transform: translateY(-24px) translateX(12px); }
+  }
+}
+
