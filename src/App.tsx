@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index.tsx";
 import Respostas from "./pages/Respostas.tsx";
 import Cartao from "./pages/Cartao.tsx";
+import CartaoPublico from "./pages/CartaoPublico.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -20,6 +21,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/respostas" element={<Respostas />} />
           <Route path="/cartao" element={<Cartao />} />
+          <Route path="/cartao/:token" element={<CartaoPublico />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
