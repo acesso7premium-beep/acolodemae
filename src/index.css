@@ -42,7 +42,23 @@
     --sidebar-accent-foreground: 210 40% 98%;
     --sidebar-border: 228 40% 30%;
     --sidebar-ring: 48 96% 53%;
+
+    /* TEA palette as CSS vars (used by imported quiz components) */
+    --tea-red: #E63946;
+    --tea-orange: #F4A261;
+    --tea-yellow: #FFD23F;
+    --tea-green: #2A9D8F;
+    --tea-blue: #1D4ED8;
+    --tea-cyan: #38BDF8;
+
+    --gradient-warm:
+      radial-gradient(1200px 800px at 20% 10%, hsl(228 55% 26%) 0%, transparent 60%),
+      radial-gradient(1000px 700px at 90% 90%, hsl(228 60% 18%) 0%, transparent 55%),
+      linear-gradient(180deg, hsl(228 67% 14%) 0%, hsl(228 70% 11%) 100%);
+    --gradient-primary: linear-gradient(135deg, #FFD23F 0%, #F4A261 100%);
+    --shadow-soft: 0 12px 36px -12px hsl(228 70% 8% / 0.55);
   }
+
 }
 
 @layer base {
