@@ -55,7 +55,7 @@ const HeroSection = () => {
             <Button
               asChild
               size="lg"
-              className="group relative min-h-14 overflow-hidden rounded-full bg-gradient-to-r from-tea-yellow via-[#FFB347] to-tea-yellow bg-[length:200%_100%] px-8 font-bold text-background shadow-[0_12px_40px_-8px_hsl(var(--ring)/0.7)] ring-2 ring-tea-yellow/40 ring-offset-2 ring-offset-background transition-all duration-500 hover:-translate-y-0.5 hover:bg-[position:100%_0] hover:shadow-[0_20px_50px_-10px_hsl(var(--ring)/0.9)] focus-visible:ring-tea-yellow"
+              className="group relative min-h-14 overflow-hidden rounded-full bg-gradient-to-r from-tea-yellow via-[#FFD700] to-tea-yellow bg-[length:200%_100%] px-10 font-bold text-background shadow-[0_12px_40px_-8px_hsl(var(--tea-yellow)/0.5)] ring-2 ring-tea-yellow/50 ring-offset-2 ring-offset-background transition-all duration-500 hover:-translate-y-1 hover:bg-[position:100%_0] hover:shadow-[0_20px_50px_-10px_hsl(var(--tea-yellow)/0.7)] focus-visible:ring-tea-yellow"
             >
               <a
                 href="/cartao"
@@ -63,12 +63,8 @@ const HeroSection = () => {
                 rel="noopener noreferrer"
                 aria-label="Abrir cadastro do Cartão Colo de Mãe em nova aba"
               >
-                {/* halo pulsante */}
-                <span className="pointer-events-none absolute inset-0 -z-10 animate-ping rounded-full bg-tea-yellow/40" aria-hidden />
-                <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-                <Sparkles size={18} className="relative" />
+                <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
                 <span className="relative">Cartão Colo de Mãe</span>
-                <ExternalLink size={16} className="relative transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </a>
             </Button>
 
