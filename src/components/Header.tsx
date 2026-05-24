@@ -44,7 +44,7 @@ const Header = () => {
             asChild
             className="rounded-full bg-tea-yellow px-6 py-2 text-sm font-bold text-background shadow-[0_8px_24px_-6px_hsl(var(--tea-yellow)/0.5)] ring-2 ring-tea-yellow/40 ring-offset-2 ring-offset-background transition-all hover:-translate-y-0.5 hover:bg-[#FFD700] hover:shadow-[0_12px_32px_-8px_hsl(var(--tea-yellow)/0.7)]"
           >
-            <a href="/respostas">Entrar</a>
+            <a href="/entrar">Entrar</a>
           </Button>
         </nav>
 
@@ -82,7 +82,7 @@ const Header = () => {
                 asChild
                 className="mt-2 rounded-full bg-tea-yellow py-3 text-sm font-bold text-background shadow-[0_8px_24px_-6px_hsl(var(--tea-yellow)/0.5)] ring-2 ring-tea-yellow/40 ring-offset-2 ring-offset-background transition-all hover:bg-[#FFD700]"
               >
-                <a href="/respostas" onClick={() => setOpen(false)}>
+                <a href="/entrar" onClick={() => setOpen(false)}>
                   Entrar
                 </a>
               </Button>
