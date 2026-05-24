@@ -1,60 +1,53 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 
-type Submission = {
-  wantsCard: boolean | null;
-  contact: { email: string; whatsapp: string } | null;
-  credentials?: { word?: string; phrase?: string; code?: string; shareUrl?: string } | null;
-  answers: Record<string, any>;
-  submittedAt: string;
+type PublicCartao = {
+  protocolo: string;
+  nome_pcd: string | null;
+  nome_responsavel: string | null;
+  cidade: string | null;
+  estado: string | null;
+  diagnosticos: string[] | null;
+  necessidades: string[] | null;
+  wants_card: boolean;
+  created_at: string;
 };
-
-const FORBIDDEN = new Set(["word", "phrase", "code", "palavra", "frase", "codigo", "código"]);
-
-const PUBLIC_FIELDS: { key: string; label: string }[] = [
-  { key: "nomePaciente", label: "Beneficiário(a)" },
-  { key: "nomeResponsavel", label: "Responsável" },
-  { key: "cidade", label: "Cidade" },
-  { key: "estado", label: "Estado" },
-  { key: "diagnostico", label: "Diagnóstico" },
-  { key: "tipoDeficiencia", label: "Tipo de apoio" },
-];
-
-function sanitizeAnswers(a: Record<string, any>) {
-  const out: Record<string, any> = {};
-  for (const { key } of PUBLIC_FIELDS) {
-    if (FORBIDDEN.has(key)) continue;
-    if (a[key] !== undefined && a[key] !== "") out[key] = a[key];
-  }
-  return out;
-}
 
 export default function CartaoPublico() {
   const { token } = useParams<{ token: string }>();
-  const [submission, setSubmission] = useState<Submission | null>(null);
+  const [cartao, setCartao] = useState<PublicCartao | null>(null);
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem("colo-de-mae-respostas");
-      const all: Submission[] = raw ? JSON.parse(raw) : [];
-      const found = all.find((s) => (s.credentials?.shareUrl || "").endsWith(`/cartao/${token}`));
-      setSubmission(found ?? null);
-    } catch {
-      setSubmission(null);
-    } finally {
+    let active = true;
+    (async () => {
+      if (!token) {
+        setLoading(false);
+        return;
+      }
+      const { data, error } = await supabase.rpc("get_public_cartao", { _token: token });
+      if (!active) return;
+      if (error) {
+        console.error(error);
+        setCartao(null);
+      } else if (Array.isArray(data) && data.length > 0) {
+        setCartao(data[0] as PublicCartao);
+      } else {
+        setCartao(null);
+      }
       setLoading(false);
-    }
+    })();
+    return () => {
+      active = false;
+    };
   }, [token]);
 
-  const safeAnswers = useMemo(
-    () => (submission ? sanitizeAnswers(submission.answers || {}) : {}),
-    [submission],
+  const shareUrl = useMemo(
+    () => (typeof window !== "undefined" ? `${window.location.origin}/cartao/${token}` : `/cartao/${token}`),
+    [token],
   );
-
-  const shareUrl =
-    typeof window !== "undefined" ? `${window.location.origin}/cartao/${token}` : `/cartao/${token}`;
 
   const copyLink = async () => {
     try {
@@ -80,43 +73,62 @@ export default function CartaoPublico() {
 
         {loading ? (
           <p className="text-center text-muted-foreground py-10" aria-live="polite">Carregando…</p>
-        ) : !submission ? (
+        ) : !cartao ? (
           <div className="rounded-2xl bg-accent/30 border-2 border-accent p-6 text-center">
             <div className="text-4xl mb-2" aria-hidden>🔎</div>
-            <h2 className="text-xl font-bold mb-2">Cartão não encontrado neste dispositivo</h2>
-            <p className="text-muted-foreground">
-              Os dados ficam salvos no navegador em que o cadastro foi feito. Abra este link no
-              mesmo dispositivo para visualizar o resumo.
-            </p>
+            <h2 className="text-xl font-bold mb-2">Cartão não encontrado</h2>
+            <p className="text-muted-foreground">Verifique se o link está correto.</p>
             <Link
               to="/cartao"
               className="mt-5 inline-flex rounded-2xl bg-gradient-primary px-6 py-3 font-bold text-primary-foreground shadow-soft"
             >
-              Voltar ao início
+              Fazer meu cadastro
             </Link>
           </div>
         ) : (
           <>
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-muted/60 px-3 py-1 text-xs font-mono">
+              {cartao.protocolo}
+            </div>
+
             <dl className="grid sm:grid-cols-2 gap-x-6 gap-y-3 mb-6">
               <div className="rounded-xl bg-muted/40 p-3">
                 <dt className="text-xs font-semibold text-muted-foreground uppercase">Cadastrado em</dt>
-                <dd className="font-medium">{new Date(submission.submittedAt).toLocaleString("pt-BR")}</dd>
+                <dd className="font-medium">{new Date(cartao.created_at).toLocaleString("pt-BR")}</dd>
               </div>
               <div className="rounded-xl bg-muted/40 p-3">
                 <dt className="text-xs font-semibold text-muted-foreground uppercase">Cartão solicitado</dt>
-                <dd className="font-medium">{submission.wantsCard ? "Sim 💙" : "Não"}</dd>
+                <dd className="font-medium">{cartao.wants_card ? "Sim 💙" : "Não"}</dd>
               </div>
-              {PUBLIC_FIELDS.map(({ key, label }) =>
-                safeAnswers[key] ? (
-                  <div key={key} className="rounded-xl bg-muted/40 p-3 sm:col-span-2">
-                    <dt className="text-xs font-semibold text-muted-foreground uppercase">{label}</dt>
-                    <dd className="font-medium break-words">
-                      {Array.isArray(safeAnswers[key])
-                        ? safeAnswers[key].join(", ")
-                        : String(safeAnswers[key])}
-                    </dd>
-                  </div>
-                ) : null,
+              {cartao.nome_pcd && (
+                <div className="rounded-xl bg-muted/40 p-3 sm:col-span-2">
+                  <dt className="text-xs font-semibold text-muted-foreground uppercase">Beneficiário(a)</dt>
+                  <dd className="font-medium">{cartao.nome_pcd}</dd>
+                </div>
+              )}
+              {cartao.nome_responsavel && (
+                <div className="rounded-xl bg-muted/40 p-3 sm:col-span-2">
+                  <dt className="text-xs font-semibold text-muted-foreground uppercase">Responsável</dt>
+                  <dd className="font-medium">{cartao.nome_responsavel}</dd>
+                </div>
+              )}
+              {(cartao.cidade || cartao.estado) && (
+                <div className="rounded-xl bg-muted/40 p-3 sm:col-span-2">
+                  <dt className="text-xs font-semibold text-muted-foreground uppercase">Localização</dt>
+                  <dd className="font-medium">{[cartao.cidade, cartao.estado].filter(Boolean).join(" / ")}</dd>
+                </div>
+              )}
+              {cartao.diagnosticos && cartao.diagnosticos.length > 0 && (
+                <div className="rounded-xl bg-muted/40 p-3 sm:col-span-2">
+                  <dt className="text-xs font-semibold text-muted-foreground uppercase">Diagnósticos</dt>
+                  <dd className="font-medium">{cartao.diagnosticos.join(", ")}</dd>
+                </div>
+              )}
+              {cartao.necessidades && cartao.necessidades.length > 0 && (
+                <div className="rounded-xl bg-muted/40 p-3 sm:col-span-2">
+                  <dt className="text-xs font-semibold text-muted-foreground uppercase">Necessidades</dt>
+                  <dd className="font-medium">{cartao.necessidades.join(", ")}</dd>
+                </div>
               )}
             </dl>
 
@@ -141,7 +153,7 @@ export default function CartaoPublico() {
             </div>
 
             <p className="mt-6 text-xs text-center text-muted-foreground">
-              🛡️ Por segurança, nenhuma palavra, frase ou código secreto é exibida nesta página pública.
+              🛡️ Palavra, frase e código secretos nunca são exibidos nesta página pública.
             </p>
           </>
         )}

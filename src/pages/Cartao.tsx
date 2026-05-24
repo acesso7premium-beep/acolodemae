@@ -35,7 +35,12 @@ export default function Cartao() {
           wantsCard={wantsCard}
           contact={contact}
           credentials={credentials}
-          onFinish={() => setPhase("done")}
+          onFinish={(info) => {
+            if (info?.shareUrl && credentials) {
+              setCredentials({ ...credentials, shareUrl: info.shareUrl });
+            }
+            setPhase("done");
+          }}
         />
       )}
       {phase === "done" && <ThankYou shareUrl={credentials?.shareUrl} />}
