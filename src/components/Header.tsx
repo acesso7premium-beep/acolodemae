@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo-colo-de-mae.png";
 
 const navItems = [
@@ -9,7 +10,6 @@ const navItems = [
   { label: "Equipe", href: "/#equipe" },
   { label: "Galeria", href: "/#galeria" },
   { label: "Contato", href: "/#contato" },
-  { label: "Respostas", href: "/respostas" },
 ];
 
 const Header = () => {
