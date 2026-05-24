@@ -30,7 +30,7 @@ const Header = () => {
         </a>
 
         {/* Desktop nav */}
-        <nav className="hidden gap-8 md:flex">
+        <nav className="hidden items-center gap-8 md:flex">
           {navItems.map((item) => (
             <a
               key={item.href}
@@ -40,6 +40,12 @@ const Header = () => {
               {item.label}
             </a>
           ))}
+          <Button
+            asChild
+            className="rounded-full bg-tea-yellow px-6 py-2 text-sm font-bold text-background shadow-[0_8px_24px_-6px_hsl(var(--tea-yellow)/0.5)] ring-2 ring-tea-yellow/40 ring-offset-2 ring-offset-background transition-all hover:-translate-y-0.5 hover:bg-[#FFD700] hover:shadow-[0_12px_32px_-8px_hsl(var(--tea-yellow)/0.7)]"
+          >
+            <a href="/respostas">Entrar</a>
+          </Button>
         </nav>
 
         {/* Mobile toggle */}
