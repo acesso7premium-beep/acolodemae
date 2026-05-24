@@ -54,7 +54,7 @@ const HeroSection = () => {
             <Button
               asChild
               size="lg"
-              className="group relative min-h-14 overflow-hidden rounded-full bg-gradient-to-r from-tea-yellow via-[#FFD700] to-tea-yellow bg-[length:200%_100%] px-10 font-bold text-background shadow-[0_12px_40px_-8px_hsl(var(--tea-yellow)/0.5)] ring-2 ring-tea-yellow/50 ring-offset-2 ring-offset-background transition-all duration-500 hover:-translate-y-1 hover:bg-[position:100%_0] hover:shadow-[0_20px_50px_-10px_hsl(var(--tea-yellow)/0.7)] focus-visible:ring-tea-yellow"
+              className="group relative min-h-[4.5rem] overflow-hidden rounded-full bg-gradient-to-r from-tea-yellow via-[#FFD700] to-tea-yellow bg-[length:200%_100%] px-[3.25rem] text-xl font-bold text-background shadow-[0_12px_40px_-8px_hsl(var(--tea-yellow)/0.5)] ring-2 ring-tea-yellow/50 ring-offset-2 ring-offset-background transition-all duration-500 hover:-translate-y-1 hover:bg-[position:100%_0] hover:shadow-[0_20px_50px_-10px_hsl(var(--tea-yellow)/0.7)] focus-visible:ring-tea-yellow"
             >
               <a
                 href="/cartao"
