@@ -70,7 +70,8 @@ export function Quiz({ wantsCard, contact, credentials, onFinish }: Props) {
         }
         const { data: inserted, error: insErr } = await supabase
           .from("cadastros")
-          .insert(payload)
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          .insert(payload as any)
           .select("id, share_token, protocolo")
           .single();
         if (insErr || !inserted) throw insErr ?? new Error("Falha ao salvar cadastro");
