@@ -72,18 +72,6 @@ const HeroSection = () => {
               </a>
             </Button>
 
-            {/* Secondary — Atividades */}
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="group min-h-14 rounded-full border-2 border-foreground/20 bg-foreground/5 px-8 font-bold text-foreground backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-tea-yellow hover:bg-tea-yellow/10 hover:text-tea-yellow"
-            >
-              <a href="#atividades">
-                Conheça nossas Atividades
-                <ArrowDown size={18} className="transition-transform duration-300 group-hover:translate-y-0.5" />
-              </a>
-            </Button>
           </motion.div>
         </div>
 
