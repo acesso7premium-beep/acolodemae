@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { toast } from "sonner";
 
 interface Props {
   open: boolean;
@@ -26,6 +27,7 @@ const PHRASES = [
 ];
 
 const CHARS = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+const STORAGE_KEY = "colo-de-mae-security-draft";
 
 function pick<T>(arr: T[]) {
   return arr[Math.floor(Math.random() * arr.length)];
@@ -36,20 +38,51 @@ function genCode() {
   return s;
 }
 
+type Draft = {
+  word: string;
+  phrase: string;
+  code: string;
+  shareToken: string;
+  saved: boolean;
+  acknowledged: boolean;
+};
+
+function loadDraft(): Draft {
+  try {
+    const raw = typeof window !== "undefined" ? localStorage.getItem(STORAGE_KEY) : null;
+    if (raw) {
+      const d = JSON.parse(raw) as Partial<Draft>;
+      if (d.word && d.phrase && d.code && d.shareToken) {
+        return {
+          word: d.word,
+          phrase: d.phrase,
+          code: d.code,
+          shareToken: d.shareToken,
+          saved: Boolean(d.saved),
+          acknowledged: Boolean(d.acknowledged),
+        };
+      }
+    }
+  } catch {}
+  return {
+    word: pick(WORDS),
+    phrase: pick(PHRASES),
+    code: genCode(),
+    shareToken: `${Math.random().toString(36).slice(2, 8)}${Math.random().toString(36).slice(2, 8)}`,
+    saved: false,
+    acknowledged: false,
+  };
+}
+
 export function SecurityModal({ open, onClose, onSubmit }: Props) {
-  const [word, setWord] = useState(() => pick(WORDS));
-  const [phrase, setPhrase] = useState(() => pick(PHRASES));
-  const [code, setCode] = useState(() => genCode());
-  const [saved, setSaved] = useState(false);
-  const [acknowledged, setAcknowledged] = useState(false);
+  const [draft, setDraft] = useState<Draft>(() => loadDraft());
+  const { word, phrase, code, shareToken, saved, acknowledged } = draft;
   const [err, setErr] = useState<string | null>(null);
   const [copiedLink, setCopiedLink] = useState(false);
 
-  const [shareToken] = useState(() => {
-    const a = Math.random().toString(36).slice(2, 8);
-    const b = Math.random().toString(36).slice(2, 8);
-    return `${a}${b}`;
-  });
+  useEffect(() => {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(draft)); } catch {}
+  }, [draft]);
 
   const shareUrl = useMemo(() => {
     const origin =
@@ -71,6 +104,20 @@ export function SecurityModal({ open, onClose, onSubmit }: Props) {
 
   if (!open) return null;
 
+  const regen = (field: "word" | "phrase" | "code") => {
+    setDraft((d) => ({
+      ...d,
+      saved: false,
+      ...(field === "word" ? { word: pick(WORDS) } : {}),
+      ...(field === "phrase" ? { phrase: pick(PHRASES) } : {}),
+      ...(field === "code" ? { code: genCode() } : {}),
+    }));
+    const label = field === "word" ? "Nova palavra gerada" : field === "phrase" ? "Nova frase gerada" : "Novo código gerado";
+    toast.success(label, {
+      description: "Salve novamente as credenciais para habilitar Continuar.",
+    });
+  };
+
   const handleSave = () => {
     const blob = new Blob([fileContent], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
@@ -81,14 +128,30 @@ export function SecurityModal({ open, onClose, onSubmit }: Props) {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    setSaved(true);
+    setDraft((d) => ({ ...d, saved: true }));
     setErr(null);
+    toast.success("Arquivo .txt baixado", { description: "Guarde-o em local seguro." });
   };
 
   const copyCode = async () => {
     try {
       await navigator.clipboard.writeText(code);
-    } catch {}
+      toast.success("Código copiado");
+    } catch {
+      toast.error("Não foi possível copiar");
+    }
+  };
+
+  const copyAll = async () => {
+    const text = `Palavra: ${word}\nFrase: ${phrase}\nCódigo: ${code}\nLink: ${shareUrl}`;
+    try {
+      await navigator.clipboard.writeText(text);
+      toast.success("Credenciais copiadas", {
+        description: "Palavra, frase, código e link foram para a área de transferência.",
+      });
+    } catch {
+      toast.error("Não foi possível copiar as credenciais");
+    }
   };
 
   const copyLink = async () => {
@@ -123,8 +186,11 @@ export function SecurityModal({ open, onClose, onSubmit }: Props) {
       setErr("Marque que você anotou seu código em um lugar seguro.");
       return;
     }
+    try { localStorage.removeItem(STORAGE_KEY); } catch {}
     onSubmit({ word, phrase, code, shareUrl });
   };
+
+  const canContinue = saved && acknowledged;
 
   return (
     <div
@@ -148,7 +214,7 @@ export function SecurityModal({ open, onClose, onSubmit }: Props) {
 
         <p className="mb-5 rounded-2xl border-2 border-accent/50 bg-accent/10 px-4 py-3 text-center text-sm text-foreground/80">
           Geramos credenciais aleatórias para você. Você pode gerar novas quantas vezes quiser e depois{" "}
-          <strong>salvar</strong> em local seguro.
+          <strong>salvar</strong> em local seguro. Tudo fica guardado neste navegador até você concluir.
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-6 items-start">
@@ -166,7 +232,7 @@ export function SecurityModal({ open, onClose, onSubmit }: Props) {
               />
               <button
                 type="button"
-                onClick={() => { setWord(pick(WORDS)); setSaved(false); }}
+                onClick={() => regen("word")}
                 aria-label="Gerar nova palavra"
                 className="rounded-2xl border-2 border-border bg-card px-4 hover:bg-muted transition-colors"
               >
@@ -188,7 +254,7 @@ export function SecurityModal({ open, onClose, onSubmit }: Props) {
               />
               <button
                 type="button"
-                onClick={() => { setPhrase(pick(PHRASES)); setSaved(false); }}
+                onClick={() => regen("phrase")}
                 aria-label="Gerar nova frase"
                 className="rounded-2xl border-2 border-border bg-card px-4 hover:bg-muted transition-colors"
               >
@@ -219,7 +285,7 @@ export function SecurityModal({ open, onClose, onSubmit }: Props) {
                 </button>
                 <button
                   type="button"
-                  onClick={() => { setCode(genCode()); setSaved(false); }}
+                  onClick={() => regen("code")}
                   aria-label="Gerar novo código"
                   className="rounded-xl border-2 border-border bg-card px-3 py-2 hover:bg-muted transition-colors"
                 >
@@ -231,7 +297,7 @@ export function SecurityModal({ open, onClose, onSubmit }: Props) {
               <input
                 type="checkbox"
                 checked={acknowledged}
-                onChange={(e) => { setAcknowledged(e.target.checked); setErr(null); }}
+                onChange={(e) => { setDraft((d) => ({ ...d, acknowledged: e.target.checked })); setErr(null); }}
                 className="h-5 w-5 rounded border-2 border-border accent-accent"
               />
               Já anotei meu código em um lugar seguro.
@@ -273,17 +339,47 @@ export function SecurityModal({ open, onClose, onSubmit }: Props) {
             </button>
           </div>
 
-          <button
-            type="button"
-            onClick={handleSave}
-            className={`w-full inline-flex items-center justify-center gap-2 rounded-2xl border-2 px-6 py-4 text-base font-bold transition-all min-h-14 ${
-              saved
-                ? "border-accent bg-accent/15 text-accent"
-                : "border-border bg-card hover:bg-muted text-foreground"
-            }`}
-          >
-            {saved ? "✅ Credenciais salvas" : "⬇️ Salvar credenciais (obrigatório)"}
-          </button>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <button
+              type="button"
+              onClick={handleSave}
+              className={`inline-flex items-center justify-center gap-2 rounded-2xl border-2 px-6 py-4 text-base font-bold transition-all min-h-14 ${
+                saved
+                  ? "border-accent bg-accent/15 text-accent"
+                  : "border-border bg-card hover:bg-muted text-foreground"
+              }`}
+            >
+              {saved ? "✅ Credenciais salvas" : "⬇️ Salvar credenciais (.txt)"}
+            </button>
+            <button
+              type="button"
+              onClick={copyAll}
+              className="inline-flex items-center justify-center gap-2 rounded-2xl border-2 border-border bg-card px-6 py-4 text-base font-bold hover:bg-muted transition-all min-h-14"
+            >
+              📋 Copiar credenciais
+            </button>
+          </div>
+
+          {/* Checklist — por que Continuar está desabilitado */}
+          <div className="rounded-2xl border-2 border-border bg-muted/20 p-4 space-y-2">
+            <p className="text-sm font-semibold mb-1">Para liberar “Continuar”:</p>
+            <div className="flex items-center gap-2 text-sm">
+              <span className={`inline-flex h-5 w-5 items-center justify-center rounded-full border-2 ${saved ? "border-accent bg-accent text-accent-foreground" : "border-border bg-card"}`}>
+                {saved ? "✓" : ""}
+              </span>
+              <span className={saved ? "text-foreground" : "text-muted-foreground"}>
+                Salvar credenciais (.txt)
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-sm">
+              <span className={`inline-flex h-5 w-5 items-center justify-center rounded-full border-2 ${acknowledged ? "border-accent bg-accent text-accent-foreground" : "border-border bg-card"}`}>
+                {acknowledged ? "✓" : ""}
+              </span>
+              <span className={acknowledged ? "text-foreground" : "text-muted-foreground"}>
+                Confirmar que anotei o código
+              </span>
+            </div>
+          </div>
 
           {err && (
             <p role="alert" className="rounded-xl bg-destructive/10 border-2 border-destructive/30 px-4 py-3 text-destructive font-medium">
@@ -304,7 +400,8 @@ export function SecurityModal({ open, onClose, onSubmit }: Props) {
           <button
             type="button"
             onClick={submit}
-            disabled={!saved || !acknowledged}
+            disabled={!canContinue}
+            title={!canContinue ? "Salve as credenciais e confirme o código para continuar" : undefined}
             className="rounded-2xl bg-gradient-primary px-8 py-4 text-lg font-bold text-primary-foreground shadow-soft hover:opacity-95 active:scale-[0.98] transition-all min-h-14 disabled:opacity-40 disabled:cursor-not-allowed"
           >
             Continuar para o cadastro →
