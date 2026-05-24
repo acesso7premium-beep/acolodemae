@@ -94,6 +94,12 @@
   .bg-tea-yellow { background-color: #FFD23F; }
   .bg-tea-blue { background-color: #1D4ED8; }
 
+  .bg-gradient-warm { background: var(--gradient-warm); }
+  .bg-gradient-primary { background: var(--gradient-primary); }
+  .shadow-soft { box-shadow: var(--shadow-soft); }
+  .animate-fade-in { animation: fadeIn 0.4s ease-out; }
+  .animate-slide-up { animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+
   .animate-float {
     animation: float 9s ease-in-out infinite;
   }
@@ -101,5 +107,14 @@
     0%, 100% { transform: translateY(0) translateX(0); }
     50% { transform: translateY(-24px) translateX(12px); }
   }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 }
+
 
