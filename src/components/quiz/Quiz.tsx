@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import { steps } from "./steps";
 import { FieldRenderer } from "./Field";
+import { supabase } from "@/integrations/supabase/client";
+import { mapAnswersToCadastro } from "./mapAnswers";
 
 const STORAGE_KEY = "colo-de-mae-quiz";
 
@@ -8,13 +11,14 @@ interface Props {
   wantsCard: boolean | null;
   contact?: { email: string; whatsapp: string } | null;
   credentials?: { word: string; phrase: string; code: string; shareUrl?: string } | null;
-  onFinish: () => void;
+  onFinish: (info?: { shareUrl?: string; protocolo?: string }) => void;
 }
 
 export function Quiz({ wantsCard, contact, credentials, onFinish }: Props) {
   const [stepIndex, setStepIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, any>>({});
   const [error, setError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
@@ -44,7 +48,7 @@ export function Quiz({ wantsCard, contact, credentials, onFinish }: Props) {
     setError(null);
   };
 
-  const next = () => {
+  const next = async () => {
     for (const f of step.fields) {
       if (f.required) {
         const v = answers[f.id];
@@ -55,26 +59,57 @@ export function Quiz({ wantsCard, contact, credentials, onFinish }: Props) {
       }
     }
     if (isLast) {
-      const submission = {
-        wantsCard,
-        contact: contact || null,
-        credentials: credentials || null,
-        answers,
-        submittedAt: new Date().toISOString(),
-      };
-      const listKey = "colo-de-mae-respostas";
-      const list = JSON.parse(localStorage.getItem(listKey) || "[]");
-      list.push(submission);
-      localStorage.setItem(listKey, JSON.stringify(list));
-      localStorage.setItem(STORAGE_KEY + "-final", JSON.stringify(submission));
-      localStorage.removeItem(STORAGE_KEY);
-      onFinish();
+      if (submitting) return;
+      setSubmitting(true);
+      try {
+        const payload = mapAnswersToCadastro(answers, { wantsCard, contact });
+        if (!payload.aceite_lgpd || !payload.aceite_termo) {
+          setError("É necessário aceitar os termos para concluir.");
+          setSubmitting(false);
+          return;
+        }
+        const { data: inserted, error: insErr } = await supabase
+          .from("cadastros")
+          .insert(payload)
+          .select("id, share_token, protocolo")
+          .single();
+        if (insErr || !inserted) throw insErr ?? new Error("Falha ao salvar cadastro");
+
+        if (credentials?.code) {
+          const { error: credErr } = await supabase
+            .from("cadastro_credenciais")
+            .insert({
+              cadastro_id: inserted.id,
+              word: credentials.word,
+              phrase: credentials.phrase,
+              code: credentials.code.toUpperCase(),
+            });
+          if (credErr) {
+            console.error("Falha ao salvar credenciais", credErr);
+          }
+        }
+
+        const shareUrl = `${window.location.origin}/cartao/${inserted.share_token}`;
+        localStorage.removeItem(STORAGE_KEY);
+        localStorage.removeItem(STORAGE_KEY + "-final");
+        toast.success("Cadastro enviado com sucesso", {
+          description: `Protocolo: ${inserted.protocolo}`,
+        });
+        onFinish({ shareUrl, protocolo: inserted.protocolo });
+      } catch (err: unknown) {
+        const msg = err instanceof Error ? err.message : "Erro ao enviar cadastro";
+        toast.error("Erro ao enviar", { description: msg });
+        setError(msg);
+      } finally {
+        setSubmitting(false);
+      }
     } else {
       setStepIndex((i) => i + 1);
     }
   };
 
   const back = () => setStepIndex((i) => Math.max(0, i - 1));
+
 
   return (
     <div className="min-h-dvh bg-gradient-warm py-6 sm:py-12 px-4">
