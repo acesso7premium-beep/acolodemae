@@ -17,12 +17,12 @@ const Header = () => {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-md">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4">
+      <div className="container mx-auto flex h-[76px] items-center justify-between px-4">
         <a href="#" className="flex items-center gap-3">
           <img
             src={logo}
             alt="Logo Associação Colo de Mãe"
-            className="h-10 w-auto"
+            className="h-[52px] w-auto"
           />
           <span className="hidden font-heading text-lg font-bold text-foreground sm:inline">
             Colo de Mãe
