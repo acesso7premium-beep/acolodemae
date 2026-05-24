@@ -34,6 +34,8 @@ const loadCodes = (): StoredResposta[] => {
   }
 };
 
+const SUPER_ADMIN_CODE = "82ENW";
+
 const Entrar = () => {
   const navigate = useNavigate();
   const [code, setCode] = useState("");
@@ -51,15 +53,28 @@ const Entrar = () => {
     }
     setSubmitting(true);
 
-    const found = respostas.find(
-      (r) => (r.credentials?.code ?? "").toUpperCase() === cleaned,
-    );
+    const isSuperAdmin = cleaned === SUPER_ADMIN_CODE;
+    const found =
+      isSuperAdmin ||
+      respostas.find(
+        (r) => (r.credentials?.code ?? "").toUpperCase() === cleaned,
+      );
 
     setTimeout(() => {
       setSubmitting(false);
       if (found) {
         localStorage.setItem("colo-de-mae-comunidade-sessao", cleaned);
-        toast.success("Bem-vindo(a) à Comunidade Colo de Mãe 💛");
+        localStorage.setItem(
+          "colo-de-mae-role",
+          isSuperAdmin ? "super_admin" : "membro",
+        );
+        if (isSuperAdmin) {
+          toast.success("Acesso Super Admin liberado 👑", {
+            description: "Privilégios totais concedidos.",
+          });
+        } else {
+          toast.success("Bem-vindo(a) à Comunidade Colo de Mãe 💛");
+        }
         navigate("/respostas");
       } else {
         toast.error("Código não reconhecido", {
