@@ -173,14 +173,14 @@ const Respostas = () => {
             <div className="flex flex-wrap items-end justify-between gap-4">
               <div>
                 <Badge className="mb-3 bg-tea-yellow text-background hover:bg-tea-yellow">
-                  Painel administrativo
+                  🛡️ CRM Social — Painel Institucional
                 </Badge>
                 <h1 className="font-heading text-4xl font-extrabold md:text-5xl">
-                  Respostas & <span className="text-tea-yellow">Relatórios</span>
+                  Painel Geral de <span className="text-tea-yellow">Cadastros</span>
                 </h1>
                 <p className="mt-2 max-w-2xl text-muted-foreground">
-                  Visualize todas as respostas do Cartão Colo de Mãe e exporte em
-                  múltiplos formatos. Backup e proteção de dados configuráveis.
+                  Gestão de famílias, encaminhamentos e atendimentos. Palavra, frase
+                  e código secretos nunca são exibidos nem exportados.
                 </p>
               </div>
             </div>
