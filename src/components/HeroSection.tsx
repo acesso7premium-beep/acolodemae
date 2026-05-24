@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowDown } from "lucide-react";
 import heroImage from "@/assets/hero-children.jpg";
 
 const HeroSection = () => {
