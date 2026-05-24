@@ -9,7 +9,7 @@ const Footer = () => {
           <img
             src={logo}
             alt="Logo Colo de Mãe"
-            className="h-8 w-auto"
+            className="h-[42px] w-auto"
           />
           <span className="font-heading text-sm font-bold text-foreground">
             Colo de Mãe
