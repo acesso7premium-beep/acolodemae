@@ -78,6 +78,14 @@ const Header = () => {
                   {item.label}
                 </a>
               ))}
+              <Button
+                asChild
+                className="mt-2 rounded-full bg-tea-yellow py-3 text-sm font-bold text-background shadow-[0_8px_24px_-6px_hsl(var(--tea-yellow)/0.5)] ring-2 ring-tea-yellow/40 ring-offset-2 ring-offset-background transition-all hover:bg-[#FFD700]"
+              >
+                <a href="/respostas" onClick={() => setOpen(false)}>
+                  Entrar
+                </a>
+              </Button>
             </div>
           </motion.nav>
         )}
